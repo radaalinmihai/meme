@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, ScrollView, TouchableNativeFeedback } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import styles from '../style';
 
 export default class LoginScreen extends React.Component {
@@ -13,11 +13,14 @@ export default class LoginScreen extends React.Component {
                     <Text style={{ fontSize: 32, textAlign: 'center' }}>Login</Text>
                 </View>
                 <View>
-                    <View style={[styles.input, { flexDirection: 'row' }]}>
+                    <View style={styles.input}>
                         <FontAwesomeIcon icon={faUser} style={{ width: 25, height: 25, alignSelf: 'center' }} />
-                        <TextInput placeholder='Username' style={{ height: 40 }} style={{ color: 'black' }} textContentType='username' />
+                        <TextInput placeholder='Username' textContentType='username' />
                     </View>
-                    <TextInput placeholder='Password' style={styles.input} textContentType='password' secureTextEntry />
+                    <View style={styles.input}>
+                        <FontAwesomeIcon icon={faLock} style={{ width: 25, height: 25, alignSelf: 'center' }} />
+                        <TextInput placeholder='Password' textContentType='password' secureTextEntry />
+                    </View>
                     <TouchableNativeFeedback
                         background={TouchableNativeFeedback.SelectableBackground()}
                         useForeground>

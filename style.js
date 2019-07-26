@@ -2,14 +2,13 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     input: {
-        height: 40,
+        padding: 1,
+        paddingLeft: 10,
         borderColor: '#6e6e6e', 
         borderWidth: 1, 
         borderRadius: 4,
         marginBottom: 10,
-        /* padding: 20, */
-        flex: 1,
-        alignItems: 'center',
+        flexDirection: 'row',
     },
     w90: {
         width: '90%',
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
     flexCenter: { 
         alignItems: 'center', 
         justifyContent: 'center',
-        flexDirection: "column"
+        flexDirection: 'column',
     }
 });
 
