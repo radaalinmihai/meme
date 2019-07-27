@@ -13,11 +13,25 @@ const styles = StyleSheet.create({
     w90: {
         width: '90%',
     },
+    principalButtons: {
+        backgroundColor: '#059c5d', 
+        padding: 10, 
+        borderRadius: 4,
+    },
     flexCenter: { 
         alignItems: 'center', 
         justifyContent: 'center',
         flexDirection: 'column',
-    }
+    },
+    card: { 
+        padding: 10, 
+        borderColor: 'black', 
+        backgroundColor: 'white', 
+        borderWidth: 2, 
+        borderRadius: 4, 
+        width: '80%', 
+        height: '80%', 
+    },
 });
 
 export default styles;

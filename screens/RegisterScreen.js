@@ -25,7 +25,7 @@ export default class RegisterScreen extends React.Component {
         return (
             <ScrollView contentContainerStyle={{ flex: 1, width: '90%', justifyContent: 'center', alignSelf: 'center' }}>
                 <View style={{ marginBottom: 50 }}>
-                    <Text style={{ fontSize: 32, textAlign: 'center' }}>Register</Text>
+                    <Text style={{ fontSize: 32, textAlign: 'center' }}>Sign Up</Text>
                 </View>
                 <View>
                     <View style={styles.input}>
@@ -47,14 +47,14 @@ export default class RegisterScreen extends React.Component {
                     <TouchableNativeFeedback
                         background={TouchableNativeFeedback.SelectableBackground()}
                         useForeground>
-                        <View style={{ backgroundColor: '#06cf3c', padding: 10, borderRadius: 4 }}>
-                            <Text style={{ textAlign: 'center', color: 'white' }}>Register</Text>
+                        <View style={styles.principalButtons}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Sign Up</Text>
                         </View>
                     </TouchableNativeFeedback>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Text style={{ color: '#009cff' }} onPress={this.goToLogin}>
-                        Have an account? Login!
+                        Have an account? Sign in!
                     </Text>
                 </View>
             </ScrollView>

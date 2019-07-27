@@ -10,7 +10,7 @@ export default class LoginScreen extends React.Component {
         return (
             <ScrollView contentContainerStyle={{ flex: 1, width: '90%', justifyContent: 'center', alignSelf: 'center' }}>
                 <View style={{ marginBottom: 50 }}>
-                    <Text style={{ fontSize: 32, textAlign: 'center' }}>Login</Text>
+                    <Text style={{ fontSize: 32, textAlign: 'center' }}>Sign In</Text>
                 </View>
                 <View>
                     <View style={styles.input}>
@@ -24,14 +24,14 @@ export default class LoginScreen extends React.Component {
                     <TouchableNativeFeedback
                         background={TouchableNativeFeedback.SelectableBackground()}
                         useForeground>
-                        <View style={{ backgroundColor: '#06cf3c', padding: 10, borderRadius: 4 }}>
-                            <Text style={{ textAlign: 'center', color: 'white' }}>Login</Text>
+                        <View style={styles.principalButtons}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Sign In</Text>
                         </View>
                     </TouchableNativeFeedback>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Text style={{ color: '#009cff' }} onPress={this.goToRegister}>
-                        Don't have an account? Register!
+                        Don't have an account? Sign up!
                     </Text>
                 </View>
             </ScrollView>
