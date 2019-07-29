@@ -1,5 +1,7 @@
 import React from 'react';
-import { Image, Dimensions, PanResponder, Animated } from 'react-native';
+import { ImageBackground, Dimensions, PanResponder, Animated, Text, View } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faGrinSquintTears, faAngry } from '@fortawesome/free-solid-svg-icons';
 import styles from '../style';
 
 export default class MemeCard extends React.Component {
@@ -55,7 +57,18 @@ export default class MemeCard extends React.Component {
             <Animated.View
                 {...this.panResponder.panHandlers}
                 style={[styles.card, this.setTransformSettings()]}>
-                <Image source={meme.image} style={{ width: '100%', height: '100%' }} resizeMode='stretch' />
+                <ImageBackground source={meme.image} style={{ width: '100%', height: '100%', flexDirection: 'row', justifyContent: 'space-between' }} resizeMode='stretch'>
+                    <View style={{ flexDirection: 'row', padding: 10 }}>
+                        <Text style={{ color: 'white', fontSize: 25 }}>
+                            <FontAwesomeIcon icon={faGrinSquintTears} style={{ color: '#f3ff08', backgroundColor: 'black', borderRadius: 25 }} size={23} /> Haha
+                        </Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', padding: 10 }}>
+                        <Text style={{ color: 'white', fontSize: 25 }}>
+                            <FontAwesomeIcon icon={faAngry} style={{ color: '#f3ff08', backgroundColor: 'black', borderRadius: 25 }} size={23} /> Angry
+                        </Text>
+                    </View>
+                </ImageBackground>
             </Animated.View>
         )
     }
