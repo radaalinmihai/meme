@@ -9,46 +9,52 @@ export default class MemeCard extends React.Component {
         this.state = {
             value: 0
         };
-
+        const { width } = Dimensions.get('window');
         this.pan = new Animated.ValueXY();
 
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
-            onPanResponderMove: Animated.event([null, {
-                dx: this.pan.x,
-            }]),
+            onPanResponderMove: () => {
+                Animated.event([null, {
+                    dx: this.pan.x,
+                }]); // nu te mira ca nu se misca cardurile dupa degetul tau, e din cauza ca ai facut o functie anonima si ai apelat in functie animated.event
+            },
             onPanResponderRelease: (e, gesture) => {
-                const { width } = Dimensions.get('window');
-                console.log(gesture.moveX);
-                if (gesture.moveX < width - 80) {
-                    Animated.spring(
-                        this.pan,
-                        { toValue: { x: 0, y: 0 } }
-                    ).start();
-                } else {
-                    Animated.spring(
-                        this.pan,
-                        { toValue: { x: 420, y: 0 } }
-                    ).start();
+                let x = 0;
+                if (gesture.dx > 120) {
+                    x = width + 10;
+                } else if (gesture.dx < -120) {
+                    x = -width - 10;
                 }
+                Animated.spring(
+                    this.pan,
+                    { toValue: { x: x, y: 0 } }
+                ).start();
             }
         });
     }
     componentDidMount = () => {
-        if(this.props.transform) {
+        if (this.props.transform) {
             this.setState({
                 value: Math.round(Math.random() * (5 - (-5)) + (-5))
             });
         }
     }
+    setTransformSettings = () => {
+        const transform = {
+            transform: this.pan.getTranslateTransform()
+        };
+        transform.transform.push({ 'rotate': `${this.state.value}deg` });
+        console.log(transform);
+        return transform;
+    }
     render() {
         console.log(this.state.value);
-        const { meme } = this.props,
-              { value } = this.state;
+        const { meme } = this.props;
         return (
             <Animated.View
                 {...this.panResponder.panHandlers}
-                style={[this.pan.getLayout(), styles.card, { transform: [{ rotate: `${value}deg` }] }]}>
+                style={[styles.card, this.setTransformSettings()]}>
                 <Image source={meme.image} style={{ width: '100%', height: '100%' }} resizeMode='stretch' />
             </Animated.View>
         )
