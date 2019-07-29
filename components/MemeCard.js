@@ -14,10 +14,10 @@ export default class MemeCard extends React.Component {
 
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
-            onPanResponderMove: () => {
+            onPanResponderMove: (e, gesture) => {
                 Animated.event([null, {
                     dx: this.pan.x,
-                }]); // nu te mira ca nu se misca cardurile dupa degetul tau, e din cauza ca ai facut o functie anonima si ai apelat in functie animated.event
+                }])(e, gesture);
             },
             onPanResponderRelease: (e, gesture) => {
                 let x = 0;
