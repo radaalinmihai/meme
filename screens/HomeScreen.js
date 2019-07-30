@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MemeCard from '../components/MemeCard';
+import Header from '../components/Header';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -47,7 +48,7 @@ export default class HomeScreen extends React.Component {
     }
     insert = async () => await AsyncStorage.setItem('token', 'asdasd');
     remove = async () => await AsyncStorage.removeItem('token');
-    increaseCards = () => this.setState({ imageCount: this.state.imageCount + 1 }); // scoate asta daca nu iti place tranzitia aia de la setState
+    increaseCards = () => this.state.imageCount < this.state.memes.length ? this.setState({ imageCount: this.state.imageCount + 1 }) : null; // scoate asta daca nu iti place tranzitia aia de la setState
     async componentDidMount() {
         try {
             /* this.insert(); */
@@ -66,9 +67,12 @@ export default class HomeScreen extends React.Component {
     render() {
         const { memes, imageCount } = this.state;
         return (
-            <View style={{ position: 'relative', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }}>
-                {memes.slice(0, imageCount).map((meme, i) => <MemeCard increaseCards={this.increaseCards} transform={i % 2 !== 0 ? true : false} meme={meme} key={i} />)}
-            </View>
+            <React.Fragment>
+                <Header />
+                <View style={{ position: 'relative', alignItems: 'center', width: '100%', height: '100%' }}>
+                    {memes.slice(0, imageCount).map((meme, i) => <MemeCard increaseCards={this.increaseCards} transform={i % 2 !== 0 ? true : false} meme={meme} key={i} />)}
+                </View>
+            </React.Fragment>
         );
     }
 }

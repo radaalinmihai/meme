@@ -63,8 +63,10 @@ export default class MemeCard extends React.Component {
             onPanResponderRelease: (e, gesture) => {
                 let x = 0;
                 if (gesture.dx > 120) {
+                    console.log('haha');
                     x = width + 10;
                 } else if (gesture.dx < -120) {
+                    console.log('anger');
                     x = -width - 10;
                 }
                 Animated.spring(
