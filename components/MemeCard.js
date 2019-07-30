@@ -22,7 +22,7 @@ export default class MemeCard extends React.Component {
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
             onMoveShouldSetPanResponder: () => true,
-            onPanResponderGrant: (e, gesture) => {
+            onPanResponderGrant: () => {
                 this.pan.setOffset({
                     x: this._value.x,
                     y: this._value.y,
