@@ -13,6 +13,8 @@ export default class MemeCard extends React.Component {
         };
         const { width } = Dimensions.get('window');
         this.pan = new Animated.ValueXY();
+        this.laughEmoji = new Animated.Value(0);
+        this.angryEmoji = new Animated.Value(0);
 
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
@@ -20,6 +22,26 @@ export default class MemeCard extends React.Component {
                 Animated.event([null, {
                     dx: this.pan.x,
                 }])(e, gesture);
+                Animated.spring(
+                    this.laughEmoji,
+                    {
+                        toValue: this.pan.x.interpolate({
+                            inputRange: [0, width / 2 - 50],
+                            outputRange: [0, 1],
+                            extrapolate: 'clamp'
+                        }),
+                    }
+                ).start();
+                Animated.spring(
+                    this.angryEmoji,
+                    {
+                        toValue: this.pan.x.interpolate({
+                            inputRange: [-width / 2 + 50, 0],
+                            outputRange: [1, 0],
+                            extrapolate: 'clamp'
+                        }),
+                    }
+                ).start();
             },
             onPanResponderRelease: (e, gesture) => {
                 let x = 0;
@@ -47,27 +69,21 @@ export default class MemeCard extends React.Component {
             transform: this.pan.getTranslateTransform()
         };
         transform.transform.push({ 'rotate': `${this.state.value}deg` });
-        console.log(transform);
         return transform;
     }
     render() {
-        console.log(this.state.value);
         const { meme } = this.props;
         return (
             <Animated.View
                 {...this.panResponder.panHandlers}
                 style={[styles.card, this.setTransformSettings()]}>
                 <ImageBackground source={meme.image} style={{ width: '100%', height: '100%', flexDirection: 'row', justifyContent: 'space-between' }} resizeMode='stretch'>
-                    <View style={{ flexDirection: 'row', padding: 10 }}>
-                        <Text style={{ color: 'white', fontSize: 25 }}>
-                            <FontAwesomeIcon icon={faGrinSquintTears} style={{ color: '#f3ff08', backgroundColor: 'black', borderRadius: 25 }} size={23} /> Haha
-                        </Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', padding: 10 }}>
-                        <Text style={{ color: 'white', fontSize: 25 }}>
-                            <FontAwesomeIcon icon={faAngry} style={{ color: '#f3ff08', backgroundColor: 'black', borderRadius: 25 }} size={23} /> Angry
-                        </Text>
-                    </View>
+                    <Animated.View style={{ opacity: this.laughEmoji }}>
+                        <FontAwesomeIcon icon={faGrinSquintTears} style={styles.reactionEmojis} size={32} />
+                    </Animated.View>
+                    <Animated.View style={{ opacity: this.angryEmoji }}>
+                        <FontAwesomeIcon icon={faAngry} style={styles.reactionEmojis} size={32} />
+                    </Animated.View>
                 </ImageBackground>
             </Animated.View>
         )

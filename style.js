@@ -33,6 +33,12 @@ const styles = StyleSheet.create({
         height: '80%',
         position: 'absolute',
     },
+    reactionEmojis: {
+        color: '#f3ff08', 
+        backgroundColor: 'black', 
+        borderRadius: 25, 
+        margin: 20,
+    }
 });
 
 export default styles;

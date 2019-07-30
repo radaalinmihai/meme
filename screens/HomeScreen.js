@@ -29,8 +29,10 @@ export default class HomeScreen extends React.Component {
         };
     }
     insert = async () => await AsyncStorage.setItem('token', 'asdasd');
+    remove = async () => await AsyncStorage.removeItem('token');
     async componentDidMount() {
         try {
+            /* this.insert(); */
             const loggedIn = await AsyncStorage.getItem('token');
             if (loggedIn !== null) {
                 this.setState({
