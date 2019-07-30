@@ -16,8 +16,25 @@ export default class MemeCard extends React.Component {
         this.laughEmoji = new Animated.Value(0);
         this.angryEmoji = new Animated.Value(0);
 
+        this._value = { x: 0, y: 0 };
+        this.pan.addListener(value => this._value = value);
+
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
+            onMoveShouldSetPanResponder: () => true,
+            onPanResponderGrant: (e, gesture) => {
+                this.pan.setOffset({
+                    x: this._value.x,
+                    y: this._value.y,
+                });
+                this.pan.setValue({ x: 0, y: 0 });
+            },
+            onPanResponderEnd: () => {
+                this.pan.setOffset({
+                    x: 0,
+                    y: 0,
+                });
+            },
             onPanResponderMove: (e, gesture) => {
                 Animated.event([null, {
                     dx: this.pan.x,
@@ -47,8 +64,10 @@ export default class MemeCard extends React.Component {
                 let x = 0;
                 if (gesture.dx > 120) {
                     x = width + 10;
+                    this.props.increaseCards();
                 } else if (gesture.dx < -120) {
                     x = -width - 10;
+                    this.props.increaseCards();
                 }
                 Animated.spring(
                     this.pan,
@@ -77,7 +96,7 @@ export default class MemeCard extends React.Component {
             <Animated.View
                 {...this.panResponder.panHandlers}
                 style={[styles.card, this.setTransformSettings()]}>
-                <ImageBackground source={meme.image} style={{ width: '100%', height: '100%', flexDirection: 'row', justifyContent: 'space-between' }} resizeMode='stretch'>
+                <ImageBackground source={meme} style={{ width: '100%', height: '100%', flexDirection: 'row', justifyContent: 'space-between' }} resizeMode='stretch'>
                     <Animated.View style={{ opacity: this.laughEmoji }}>
                         <FontAwesomeIcon icon={faGrinSquintTears} style={styles.reactionEmojis} size={32} />
                     </Animated.View>
