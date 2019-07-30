@@ -64,15 +64,15 @@ export default class MemeCard extends React.Component {
                 let x = 0;
                 if (gesture.dx > 120) {
                     x = width + 10;
-                    this.props.increaseCards();
                 } else if (gesture.dx < -120) {
                     x = -width - 10;
-                    this.props.increaseCards();
                 }
                 Animated.spring(
                     this.pan,
                     { toValue: { x: x, y: 0 } }
                 ).start();
+                if(x !== 0)
+                    setTimeout(this.props.increaseCards, 500);
             }
         });
     }
