@@ -52,6 +52,7 @@ export default class HomeScreen extends React.Component {
     async componentDidMount() {
         try {
             /* this.insert(); */
+            /* this.remove(); */
             const loggedIn = await AsyncStorage.getItem('token');
             if (loggedIn !== null) {
                 this.setState({
@@ -69,7 +70,7 @@ export default class HomeScreen extends React.Component {
         return (
             <React.Fragment>
                 <Header />
-                <View style={{ position: 'relative', alignItems: 'center', width: '100%', height: '100%' }}>
+                <View style={{ position: 'relative', alignItems: 'center', width: '100%', height: '100%', zIndex: 6 }}>
                     {memes.slice(0, imageCount).map((meme, i) => <MemeCard increaseCards={this.increaseCards} transform={i % 2 !== 0 ? true : false} meme={meme} key={i} />)}
                 </View>
             </React.Fragment>

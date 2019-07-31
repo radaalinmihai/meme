@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         width: '80%', 
         height: '80%',
         position: 'absolute',
+        zIndex: 0,
     },
     reactionEmojis: {
         color: '#f3ff08', 
