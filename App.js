@@ -1,22 +1,25 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createAppContainer, createDrawerNavigator } from 'react-navigation';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import Drawer from './components/Drawer';
 
-const navigator = createStackNavigator({
+const navigator = createDrawerNavigator({
   Home: HomeScreen,
   Login: LoginScreen,
-  Register: RegisterScreen
+  Register: RegisterScreen,
 }, {
   initialRouteName: 'Home',
-  headerMode: 'none'
+  headerMode: 'none',
+  drawerWidth: 300,
+  contentComponent: Drawer
 });
 
-const AppContainer = createAppContainer(navigator);
+const AppNavigator = createAppContainer(navigator);
 
 export default class App extends React.Component {
   render() {
-    return <AppContainer />;
+    return <AppNavigator />;
   }
 }
