@@ -74,7 +74,7 @@ export default class MemeCard extends React.Component {
                     { toValue: { x: x, y: 0 } }
                 ).start();
                 if(x !== 0)
-                    setTimeout(this.props.increaseCards, 500);
+                    setTimeout(this.props.increaseCards, 200);
             }
         });
     }

@@ -15,8 +15,12 @@ export default class Header extends React.Component {
                     </View>
                 </TouchableNativeFeedback>
                 <View style={{ marginLeft: 'auto', flexDirection: 'row' }}>
-                    <FontAwesomeIcon icon={faComment} style={{ marginRight: 10 }} size={40} />
-                    <FontAwesomeIcon icon={faUserCircle} size={40} />
+                    <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('Messages')}>
+                        <FontAwesomeIcon icon={faComment} style={{ marginRight: 10 }} size={30} />
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('Profile')}>
+                        <FontAwesomeIcon icon={faUserCircle} size={30} />
+                    </TouchableNativeFeedback>
                 </View>
             </View>
         );

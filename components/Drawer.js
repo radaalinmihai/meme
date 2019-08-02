@@ -1,9 +1,23 @@
 import React from 'react';
-import { View, Text, TouchableNativeFeedback } from 'react-native';
+import { View, Text, TouchableNativeFeedback, Alert } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 
 export default class Drawer extends React.Component {
+    signOut = () => Alert.alert(
+        'Sign out', 
+        'Are you sure you want to sign out?',
+        [
+            {
+                text: 'No', 
+                onPress: () => console.log('stay logged in'),
+            },
+            {
+                text: 'Yes',
+                onPress: () => console.log('logged out'),
+            }
+        ], { cancelable: true }
+        );
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'space-between' }}>
@@ -16,14 +30,19 @@ export default class Drawer extends React.Component {
                         </TouchableNativeFeedback>
                         <View style={{ alignSelf: 'center', flexDirection: 'row', marginLeft: 10 }}>
                             <Text style={{ alignSelf: 'center' }}>PewDiePie</Text>
-                            <View style={{ backgroundColor: '#009cff', borderColor: '#006fb5', borderWidth: 2, marginLeft: 5, borderRadius: 10, padding: 5, alignSelf: 'center' }}>
-                                <Text style={{ color: '#ff1212' }}>Master MEMER</Text>
+                            <View style={{ backgroundColor: '#009cff', marginLeft: 5, borderRadius: 10, padding: 5, alignSelf: 'center' }}>
+                                <Text style={{ color: '#e3e3e3' }}>Master MEMER</Text>
                             </View>
                         </View>
                     </View>
                     <TouchableNativeFeedback>
                         <View style={{ padding: 20 }}>
-                            <Text>Your memes</Text>
+                            <Text>Memes</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback>
+                        <View style={{ padding: 20 }}>
+                            <Text>Badges</Text>
                         </View>
                     </TouchableNativeFeedback>
                     <TouchableNativeFeedback>
@@ -32,7 +51,7 @@ export default class Drawer extends React.Component {
                         </View>
                     </TouchableNativeFeedback>
                 </View>
-                <TouchableNativeFeedback>
+                <TouchableNativeFeedback onPress={this.signOut}>
                     <View style={{ padding: 20, width: '100%', borderTopColor: '#d4d4d4', borderTopWidth: 1 }}>
                         <Text style={{ textAlign: 'center', color: '#cf0000' }}>Sign out</Text>
                     </View>

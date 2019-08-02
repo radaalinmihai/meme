@@ -70,8 +70,8 @@ export default class HomeScreen extends React.Component {
         const { memes, imageCount } = this.state;
         return (
             <React.Fragment>
-                <Header openDrawer={this.openDrawer} />
-                <View style={{ position: 'relative', alignItems: 'center', width: '100%', height: '100%', zIndex: 6 }}>
+                <Header openDrawer={this.openDrawer} navigation={this.props.navigation} />
+                <View style={{ flex: 1, position: 'relative', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }}>
                     {memes.slice(0, imageCount).map((meme, i) => <MemeCard increaseCards={this.increaseCards} transform={i % 2 !== 0 ? true : false} meme={meme} key={i} />)}
                 </View>
             </React.Fragment>

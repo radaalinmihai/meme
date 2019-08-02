@@ -29,10 +29,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white', 
         borderWidth: 2, 
         borderRadius: 4, 
-        width: '80%', 
-        height: '80%',
+        width: '65%', 
+        height: '70%',
         position: 'absolute',
-        zIndex: 0,
     },
     reactionEmojis: {
         color: '#f3ff08', 
