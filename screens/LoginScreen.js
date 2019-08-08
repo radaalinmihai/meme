@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, ScrollView, TouchableNativeFeedback } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import axios from 'react-native-axios';
 import styles from '../style';
 
 export default class LoginScreen extends React.Component {
@@ -11,18 +12,20 @@ export default class LoginScreen extends React.Component {
     }
     goToRegister = () => this.props.navigation.navigate('Register');
     login = () => {
-        fetch('http://127.0.0.1:8000/api/login', {
+        axios.post('http://192.168.0.154:8000/api/login', this.state)
+        .then(res => console.log(res.data.success))
+        .catch(error => console.warn(error));
+    }
+    /* componentDidMount = () => {
+        axios('http://192.168.0.154:8000/api/details', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*',
-            },
-            body: JSON.stringify(this.state),
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU1MGNlMWZkNDJkMzE4ZTNlOWFkZTIzNWE0YzAxNzA1YzU4NDk3MGVmMWFmNDAwM2I1NDM0MjYzYjdjZTk4YjkxMTcyOTJhMjRjOWNiNTBkIn0.eyJhdWQiOiIxIiwianRpIjoiNTUwY2UxZmQ0MmQzMThlM2U5YWRlMjM1YTRjMDE3MDVjNTg0OTcwZWYxYWY0MDAzYjU0MzQyNjNiN2NlOThiOTExNzI5MmEyNGM5Y2I1MGQiLCJpYXQiOjE1NjUyNTk4NjIsIm5iZiI6MTU2NTI1OTg2MiwiZXhwIjoxNTk2ODgyMjYyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.X5afEALN7WN_xpYqFbveWBLD0as3NZtiwC3VPqtcn6hBBdVtnxEJQtay8lU2-O3lziNNL_XMOx2C7HXhF1iv4VY7Yw0xZzy_tTy9c909WWNntDsWjPAe0OP5J31oHzwE3Y8pDy1phjAMjn7YqVAsCRuGDozNRl1iuMTQOA4xuTBx3rJ_YCFmQcp_QAfi81ewwdB11I3VxhDUwiRqPqKRDyqZTPXLU8gA7HNMJbNCDuOyeOvHkdJKDNZNJIhVQeIWBlsSplMcufCYVJHd0s4aPhkXTwMCR02FBgPiY8YgdvIGpt5hPtWEApKYW6TpgbPOzBrLoi2JqbY3HyMYdSQGc9Vp5fXkMuFI2jz3Ziadnpu-sRLhEf0bBhKrhsKuExB2v0PZ-XmSKxIEyHpEdt-pZXNsmeqUFh64cRPzeT_OeGQGXrZQ40DM_quBF-EBOwVNnssb3x5CbDghTqx7e2-ZD9_OUjENpQYMdk0JDRl_H7AqFLBW4HMRUVLhXi3E1xxP9p_FARR9u8DQCeQ-RTgiSuXR-qRmbCvcK2L4b8FChbyYrnc8WsUhiz8oaXozBrBZG9BHvKmCBXRJjahVUQE6Lg_XxAbvT0wSd3YrcZ1jKQqMUYydZuXAESsdRkZNj8a-2_pmcDClljxKzrJ23-rOSwoP6pFS5TvUglDNdl-06DE'
+            }
         })
-        /* .then(res => res.json()) */
-        .then(res => console.log(res.success))
-        .catch(err => console.log(err));
-    }
+        .then(res => console.log(res))
+        .catch(err => console.warn(err));
+    } */
     render() {
         const { username, password } = this.state;
         return (
