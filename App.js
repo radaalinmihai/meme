@@ -10,9 +10,9 @@ import MessagesScreen from './screens/MessagesScreen';
 const navigator = createDrawerNavigator({
   Home: HomeScreen,
   Login: LoginScreen,
-  Register: RegisterScreen,
+  /* Register: RegisterScreen,
   Profile: ProfileScreen,
-  Messages: MessagesScreen,
+  Messages: MessagesScreen, */
 }, {
   initialRouteName: 'Home',
   headerMode: 'none',

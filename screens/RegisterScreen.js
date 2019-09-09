@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableNativeFeedback, TextInput } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faUser, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import styles from '../style';
 
 export default class RegisterScreen extends React.Component {
@@ -29,23 +27,18 @@ export default class RegisterScreen extends React.Component {
                 </View>
                 <View>
                     <View style={styles.input}>
-                        <FontAwesomeIcon icon={faUser} style={{ width: 25, height: 25, alignSelf: 'center' }} />
                         <TextInput placeholder='Username' textContentType='username' onChangeText={text => this._getInputs('username', text)} value={username} />
                     </View>
                     <View style={styles.input}>
-                        <FontAwesomeIcon icon={faEnvelope} style={{ width: 25, height: 25, alignSelf: 'center' }} />
                         <TextInput placeholder='Email' textContentType='emailAddress' onChangeText={text => this._getInputs('email', text)} value={email} />
                     </View>
                     <View style={styles.input}>
-                        <FontAwesomeIcon icon={faLock} style={{ width: 25, height: 25, alignSelf: 'center' }} />
                         <TextInput placeholder='Password' textContentType='password' secureTextEntry onChangeText={text => this._getInputs('password', text)} value={password} />
                     </View>
                     <View style={styles.input}>
-                        <FontAwesomeIcon icon={faLock} style={{ width: 25, height: 25, alignSelf: 'center' }} />
                         <TextInput placeholder='Re-type password' textContentType='password' secureTextEntry onChangeText={text => this._getInputs('retype_pass', text)} value={retype_pass} />
                     </View>
                     <TouchableNativeFeedback
-                        background={TouchableNativeFeedback.SelectableBackground()}
                         useForeground>
                         <View style={styles.principalButtons}>
                             <Text style={{ textAlign: 'center', color: 'white' }}>Sign Up</Text>

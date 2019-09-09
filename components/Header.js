@@ -1,25 +1,25 @@
 import React from 'react';
-import { View, TouchableNativeFeedback } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faUserCircle, faComment } from '@fortawesome/free-solid-svg-icons';
+import { View, TouchableNativeFeedback, Image, StatusBar } from 'react-native';
+import AntIcon from 'react-native-vector-icons/AntDesign';
+import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class Header extends React.Component {
     render() {
         return (
-            <View style={{ padding: 20, flexDirection: 'row' }}>
+            <View style={{ padding: 20, flexDirection: 'row', alignItems: 'center', backgroundColor: '#2b2b2b' }}>
+                <StatusBar barStyle='light-content' backgroundColor='#212121' />
                 <TouchableNativeFeedback onPress={this.props.openDrawer}>
-                    <View style={{ padding: 10, width: 40 }}>
-                        <View style={{ borderWidth: 1, borderColor: 'black', width: 20, marginBottom: 3 }}></View>
-                        <View style={{ borderWidth: 1, borderColor: 'black', width: 10, marginBottom: 3 }}></View>
-                        <View style={{ borderWidth: 1, borderColor: 'black', width: 15 }}></View>
-                    </View>
+                    <AntIcon name='menu-unfold' color='white' size={32} />
                 </TouchableNativeFeedback>
-                <View style={{ marginLeft: 'auto', flexDirection: 'row' }}>
+                <View style={{ marginLeft: 'auto', flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('Messages')}>
-                        <FontAwesomeIcon icon={faComment} style={{ marginRight: 10 }} size={30} />
+                        <AntIcon name='notification' style={{ marginRight: 30 }} color='white' size={32} />
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('Messages')}>
+                        <AntIcon name='message1' style={{ marginRight: 30 }} color='white' size={32} />
                     </TouchableNativeFeedback>
                     <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('Profile')}>
-                        <FontAwesomeIcon icon={faUserCircle} size={30} />
+                        <AwesomeIcon name='user-circle' size={32} color='white' />
                     </TouchableNativeFeedback>
                 </View>
             </View>

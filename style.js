@@ -24,20 +24,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     card: { 
-        padding: 10, 
-        borderColor: 'black', 
-        backgroundColor: 'white', 
-        borderWidth: 2, 
-        borderRadius: 4, 
-        width: '65%', 
-        height: '70%',
+        width: '85%', 
+        height: '90%',
         position: 'absolute',
+        borderRadius: 20,
     },
-    reactionEmojis: {
-        color: '#f3ff08', 
-        backgroundColor: 'black', 
-        borderRadius: 25, 
-        margin: 20,
+    reactionEmojis: { 
+        margin: 40,
+        borderRadius: 50
     }
 });
 

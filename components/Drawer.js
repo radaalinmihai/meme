@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableNativeFeedback, Alert } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faUserTie } from '@fortawesome/free-solid-svg-icons';
+import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class Drawer extends React.Component {
     signOut = () => Alert.alert(
@@ -20,16 +19,13 @@ export default class Drawer extends React.Component {
         );
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, justifyContent: 'space-between', backgroundColor: '#383838' }}>
                 <View>
-                    <View style={{ padding: 20, flexDirection: 'row', borderBottomColor: '#d4d4d4', borderBottomWidth: 1 }}>
-                        <TouchableNativeFeedback>
-                            <View style={{ borderColor: 'black', borderWidth: 2, borderRadius: 25, overflow: 'hidden', width: 52, height: 52, justifyContent: 'center', alignItems: 'center' }}>
-                                <FontAwesomeIcon icon={faUserTie} size={32} />
-                            </View>
-                        </TouchableNativeFeedback>
+                    <View style={{ padding: 8, flexDirection: 'row', backgroundColor: '#2b2b2b' }}>
+                        <AwesomeIcon.Button backgroundColor='#2b2b2b' onPress={() => console.log('hehe')} name='user-circle' size={40} color='white'>
+                            PewDiePie
+                        </AwesomeIcon.Button>
                         <View style={{ alignSelf: 'center', flexDirection: 'row', marginLeft: 10 }}>
-                            <Text style={{ alignSelf: 'center' }}>PewDiePie</Text>
                             <View style={{ backgroundColor: '#009cff', marginLeft: 5, borderRadius: 10, padding: 5, alignSelf: 'center' }}>
                                 <Text style={{ color: '#e3e3e3' }}>Master MEMER</Text>
                             </View>
@@ -37,23 +33,23 @@ export default class Drawer extends React.Component {
                     </View>
                     <TouchableNativeFeedback>
                         <View style={{ padding: 20 }}>
-                            <Text>Memes</Text>
+                            <Text style={{ color: 'white' }}>Memes</Text>
                         </View>
                     </TouchableNativeFeedback>
                     <TouchableNativeFeedback>
                         <View style={{ padding: 20 }}>
-                            <Text>Badges</Text>
+                            <Text style={{ color: 'white' }}>Badges</Text>
                         </View>
                     </TouchableNativeFeedback>
                     <TouchableNativeFeedback>
                         <View style={{ padding: 20 }}>
-                            <Text>Statistics</Text>
+                            <Text style={{ color: 'white' }}>Statistics</Text>
                         </View>
                     </TouchableNativeFeedback>
                 </View>
                 <TouchableNativeFeedback onPress={this.signOut}>
-                    <View style={{ padding: 20, width: '100%', borderTopColor: '#d4d4d4', borderTopWidth: 1 }}>
-                        <Text style={{ textAlign: 'center', color: '#cf0000' }}>Sign out</Text>
+                    <View style={{ padding: 15.5, width: '100%', backgroundColor: '#2b2b2b' }}>
+                        <Text style={{ textAlign: 'center', color: '#ff1717' }}>Sign out</Text>
                     </View>
                 </TouchableNativeFeedback>
             </View>
