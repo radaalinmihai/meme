@@ -88,7 +88,7 @@ export default class MemeCard extends React.Component {
                     this.pan,
                     { toValue: { x: x, y: 0 } }
                 ).start();
-                if(x !== 0)
+                if (x !== 0)
                     this.props.increaseCards();
             }
         });
@@ -99,7 +99,11 @@ export default class MemeCard extends React.Component {
             <Animated.View
                 {...this.panResponder.panHandlers}
                 style={[styles.card, this.rotateAndTranslate]}>
-                <ImageBackground source={meme} style={{ width: '100%', height: '100%', flexDirection: 'row', justifyContent: 'space-between', borderRadius: 20, flex: 1 }} resizeMode='stretch'>
+                <ImageBackground
+                    source={meme}
+                    style={{ width: '100%', height: '100%', flexDirection: 'row', justifyContent: 'space-between', flex: 1, padding: 10 }}
+                    imageStyle={{ borderRadius: 20, flex: 1, height: null, width: null }}
+                >
                     <Animated.View style={{ opacity: this.laughEmoji }}>
                         <Awesome5Icon style={styles.reactionEmojis} name='grin-squint-tears' size={60} color='#00ff00' />
                     </Animated.View>

@@ -31,7 +31,9 @@ const styles = StyleSheet.create({
     },
     reactionEmojis: { 
         margin: 40,
-        borderRadius: 50
+        borderRadius: 50,
+        backgroundColor: 'black',
+        padding: 6
     }
 });
 

@@ -51,8 +51,8 @@ export default class HomeScreen extends React.Component {
     increaseCards = () => this.state.imageCount < this.state.memes.length ? this.setState({ imageCount: this.state.imageCount + 1 }) : null; // scoate asta daca nu iti place tranzitia aia de la setState
     async componentDidMount() {
         try {
-            this.insert();
-            /* this.remove(); */
+            /* this.insert(); */
+            this.remove();
             const loggedIn = await AsyncStorage.getItem('token');
             if (loggedIn !== null) {
                 this.setState({
@@ -71,7 +71,7 @@ export default class HomeScreen extends React.Component {
         return (
             <React.Fragment>
                 <Header openDrawer={this.openDrawer} navigation={this.props.navigation} />
-                <View style={{ flex: 1, position: 'relative', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', borderRadius: 20 }}>
+                <View style={{ flex: 1, position: 'relative', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', backgroundColor: '#242424' }}>
                     {memes.slice(0, imageCount).map((meme, i) => <MemeCard increaseCards={this.increaseCards} meme={meme} key={i} />).reverse()}
                 </View>
             </React.Fragment>

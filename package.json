@@ -2,7 +2,7 @@
   "name": "meme",
   "version": "0.0.1",
   "private": true,
-  "proxy": "http://192.168.0.154:8000/api",
+  "proxy": "http://192.168.1.2/public/meme/api",
   "scripts": {
     "start": "react-native start",
     "test": "jest",
