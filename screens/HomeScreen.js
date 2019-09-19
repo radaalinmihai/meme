@@ -49,22 +49,6 @@ export default class HomeScreen extends React.Component {
     insert = async () => await AsyncStorage.setItem('token', 'asdasd');
     remove = async () => await AsyncStorage.removeItem('token');
     increaseCards = () => this.state.imageCount < this.state.memes.length ? this.setState({ imageCount: this.state.imageCount + 1 }) : null; // scoate asta daca nu iti place tranzitia aia de la setState
-    async componentDidMount() {
-        try {
-            /* this.insert(); */
-            this.remove();
-            const loggedIn = await AsyncStorage.getItem('token');
-            if (loggedIn !== null) {
-                this.setState({
-                    token: loggedIn
-                });
-            } else {
-                this.props.navigation.navigate('Login');
-            }
-        } catch (error) {
-            console.warn(error);
-        }
-    }
     openDrawer = () => this.props.navigation.openDrawer();
     render() {
         const { memes, imageCount } = this.state;

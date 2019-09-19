@@ -18,7 +18,7 @@ async function getItem(name) {
         if(item !== null)
             return JSON.parse(item);
         else
-            return new Error('Item not found');
+            return null;
     } catch(err) {
         return err;
     }

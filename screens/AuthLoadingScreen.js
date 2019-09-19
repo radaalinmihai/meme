@@ -5,19 +5,26 @@ import {getItem} from '../async_storage';
 import config from '../axios_config';
 
 export default class AuthLoadingScreen extends React.Component {
-  componentDidMount = async () => {
+  componentDidMount = () => {
+    this.checkToken();
+    this.props.navigation.navigate('App');
+  };
+  checkToken = async () => {
     const token = await getItem('@token');
     console.log(token);
-    let res = await axios.post('/checkToken', '', {
-      baseURL: config.baseURL,
-      headers: {
-        Authorization: `Bearer ${token.access_token}`,
-      },
-    });
-    let {success} = res.data;
-    if (res.data.success)
-      this.props.navigation.navigate(success ? 'App' : 'Auth');
-    console.log(success);
+    if (token !== null) {
+      axios
+        .post('/checkToken', '', {
+          baseURL: config.baseURL,
+          headers: {
+            Authorization: `Bearer ${token.access_token}`,
+          },
+        })
+        .then(res => {
+          this.props.navigation.navigate(res.data.success ? 'App' : 'Auth');
+        })
+        .catch(err => console.warn(err));
+    } else this.props.navigation.navigate('Auth');
   };
   render() {
     return (
