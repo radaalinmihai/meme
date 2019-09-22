@@ -1,14 +1,11 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import axios from 'react-native-axios';
-import {getItem} from '../async_storage';
+import {getItem, storeItem} from '../async_storage';
 import config from '../axios_config';
 
 export default class AuthLoadingScreen extends React.Component {
-  componentDidMount = () => {
-    this.checkToken();
-    this.props.navigation.navigate('App');
-  };
+  componentDidMount = () => this.checkToken();
   checkToken = async () => {
     const token = await getItem('@token');
     console.log(token);
@@ -23,7 +20,28 @@ export default class AuthLoadingScreen extends React.Component {
         .then(res => {
           this.props.navigation.navigate(res.data.success ? 'App' : 'Auth');
         })
-        .catch(err => console.warn(err));
+        .catch(err => {
+          console.log(err.response.data);
+          if (err.response && err.response.data.message == 'Unauthenticated.') {
+            axios
+              .post('/refreshToken', '', {
+                baseURL: config.baseURL,
+                headers: {
+                  Authorization: `Bearer ${token.refresh_token}`,
+                },
+              })
+              .then(async res => {
+                if (res.data.success) {
+                  await storeItem('token', res.data.success.token);
+                }
+              })
+              .catch(err => {
+                console.log(err.response);
+                if (err.response.data && err.response.status == 500)
+                  this.props.navigation.navigate('Auth');
+              });
+          }
+        });
     } else this.props.navigation.navigate('Auth');
   };
   render() {
