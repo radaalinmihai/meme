@@ -11,7 +11,6 @@ import Drawer from './components/Drawer';
 import ProfileScreen from './screens/ProfileScreen';
 import MessagesScreen from './screens/MessagesScreen';
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
-import { removeItem } from './async_storage';
 
 const AppDrawer = createDrawerNavigator(
   {
@@ -37,8 +36,6 @@ const AuthStack = createStackNavigator(
     headerMode: 'none',
   },
 );
-
-/* removeItem('@token'); */
 
 export default createAppContainer(
   createSwitchNavigator(

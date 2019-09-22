@@ -1,24 +1,43 @@
 import React from 'react';
 import {View, Text, TouchableNativeFeedback, Alert} from 'react-native';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import axios from 'react-native-axios';
+import config from '../axios_config';
+import {getItem, removeItem} from '../async_storage';
 
 export default class Drawer extends React.Component {
-  signOut = () =>
+  confirmSignOut = () =>
     Alert.alert(
       'Sign out',
       'Are you sure you want to sign out?',
       [
         {
           text: 'No',
-          onPress: () => console.log('stay logged in'),
         },
         {
           text: 'Yes',
-          onPress: () => console.log('logged out'),
+          onPress: () => this.logout(),
         },
       ],
       {cancelable: true},
     );
+  logout = async () => {
+    const token = await getItem('@token');
+    axios
+      .post('/logout', '', {
+        baseURL: config.baseURL,
+        headers: {
+          Authorization: `Bearer ${token.access_token}`,
+        },
+      })
+      .then(async res => {
+        if (res.data.success == 'Logged out succesfuly') {
+          await removeItem('@token');
+          this.props.navigation.navigate('Auth');
+        }
+      })
+      .catch(err => console.warn(err));
+  };
   render() {
     return (
       <View
@@ -61,12 +80,22 @@ export default class Drawer extends React.Component {
             </View>
           </View>
           <TouchableNativeFeedback>
-            <View style={{padding: 20}}>
+            <View
+              style={{
+                padding: 20,
+                borderBottomColor: 'grey',
+                borderBottomWidth: 0.5,
+              }}>
               <Text style={{color: 'white'}}>Memes</Text>
             </View>
           </TouchableNativeFeedback>
           <TouchableNativeFeedback>
-            <View style={{padding: 20}}>
+            <View
+              style={{
+                padding: 20,
+                borderBottomColor: 'grey',
+                borderBottomWidth: 0.5,
+              }}>
               <Text style={{color: 'white'}}>Badges</Text>
             </View>
           </TouchableNativeFeedback>
@@ -76,10 +105,11 @@ export default class Drawer extends React.Component {
             </View>
           </TouchableNativeFeedback>
         </View>
-        <TouchableNativeFeedback onPress={this.signOut}>
+        <TouchableNativeFeedback onPress={this.confirmSignOut}>
           <View
             style={{padding: 15.5, width: '100%', backgroundColor: '#2b2b2b'}}>
-            <Text style={{textAlign: 'center', color: '#ff1717'}}>
+            <Text
+              style={{textAlign: 'center', color: '#E94B3CFF', fontSize: 20}}>
               Sign out
             </Text>
           </View>
