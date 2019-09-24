@@ -2,13 +2,14 @@ import React from 'react';
 import { View, TouchableNativeFeedback, Image, StatusBar } from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { withNavigation } from 'react-navigation';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     render() {
         return (
             <View style={{ padding: 20, flexDirection: 'row', alignItems: 'center', backgroundColor: '#2b2b2b' }}>
                 <StatusBar barStyle='light-content' backgroundColor='#212121' />
-                <TouchableNativeFeedback onPress={this.props.openDrawer}>
+                <TouchableNativeFeedback onPress={this.props.navigation.openDrawer}>
                     <AntIcon name='menu-unfold' color='white' size={32} />
                 </TouchableNativeFeedback>
                 <View style={{ marginLeft: 'auto', flexDirection: 'row', alignItems: 'center' }}>
@@ -26,3 +27,5 @@ export default class Header extends React.Component {
         );
     }
 }
+
+export default withNavigation(Header);

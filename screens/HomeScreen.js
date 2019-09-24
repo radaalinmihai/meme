@@ -1,6 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import {View, StatusBar} from 'react-native';
 import MemeCard from '../components/MemeCard';
 import Header from '../components/Header';
 
@@ -9,7 +8,6 @@ export default class HomeScreen extends React.Component {
     super(props);
 
     this.state = {
-      token: null,
       memes: [
         require('../assets/may.jpg'),
         require('../assets/i-dont-always-but-when-i-do-meme_thumb.jpg'),
@@ -46,21 +44,16 @@ export default class HomeScreen extends React.Component {
       imageCount: 4,
     };
   }
-  insert = async () => await AsyncStorage.setItem('token', 'asdasd');
-  remove = async () => await AsyncStorage.removeItem('token');
   increaseCards = () =>
     this.state.imageCount < this.state.memes.length
       ? this.setState({imageCount: this.state.imageCount + 1})
       : null; // scoate asta daca nu iti place tranzitia aia de la setState
-  openDrawer = () => this.props.navigation.openDrawer();
   render() {
     const {memes, imageCount} = this.state;
     return (
       <React.Fragment>
-        <Header
-          openDrawer={this.openDrawer}
-          navigation={this.props.navigation}
-        />
+        <StatusBar barStyle="light-content" backgroundColor="#212121" />
+        <Header />
         <View
           style={{
             flex: 1,

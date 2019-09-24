@@ -1,5 +1,5 @@
 const config = {
-    baseURL: 'http://192.168.1.2/meme/public/api',
+    baseURL: 'http://radamihai.go.ro/meme/public/api',
     port: 80
 };
 
