@@ -11,12 +11,14 @@ import Drawer from './components/Drawer';
 import ProfileScreen from './screens/ProfileScreen';
 import MessagesScreen from './screens/MessagesScreen';
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
+import UploadMemeScreen from './screens/UploadMemeScreen';
 
 const AppDrawer = createDrawerNavigator(
   {
     Home: HomeScreen,
     Profile: ProfileScreen,
     Messages: MessagesScreen,
+    UploadMeme: UploadMemeScreen,
   },
   {
     initialRouteName: 'Home',

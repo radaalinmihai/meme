@@ -106,13 +106,14 @@ export default class MemeCard extends React.Component {
             flex: 1,
             padding: 10,
           }}
-          imageStyle={{borderRadius: 20, flex: 1, height: null, width: null}}>
+          imageStyle={{borderRadius: 10, flex: 1, height: null, width: null}}>
           <Animated.View style={{opacity: this.laughEmoji}}>
             <Awesome5Icon
               style={styles.reactionEmojis}
               name="grin-squint-tears"
               size={60}
               color="#00ff00"
+              solid
             />
           </Animated.View>
           <Animated.View style={{opacity: this.angryEmoji}}>
@@ -121,6 +122,7 @@ export default class MemeCard extends React.Component {
               name="sad-tear"
               size={60}
               color="#d40000"
+              solid
             />
           </Animated.View>
         </ImageBackground>

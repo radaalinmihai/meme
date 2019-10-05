@@ -2,6 +2,7 @@ import React from 'react';
 import {View, StatusBar} from 'react-native';
 import MemeCard from '../components/MemeCard';
 import Header from '../components/Header';
+import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -56,24 +57,41 @@ export default class HomeScreen extends React.Component {
         <Header />
         <View
           style={{
-            flex: 1,
-            position: 'relative',
-            alignItems: 'center',
-            width: '100%',
-            height: '100%',
-            justifyContent: 'center',
             backgroundColor: '#242424',
+            height: '90%',
+            justifyContent: 'center',
           }}>
-          {memes
-            .slice(0, imageCount)
-            .map((meme, i) => (
-              <MemeCard
-                increaseCards={this.increaseCards}
-                meme={meme}
-                key={i}
-              />
-            ))
-            .reverse()}
+          <View
+            style={{
+              position: 'relative',
+              alignItems: 'center',
+              width: '100%',
+              height: '95%',
+            }}>
+            {memes
+              .slice(0, imageCount)
+              .map((meme, i) => (
+                <MemeCard
+                  increaseCards={this.increaseCards}
+                  meme={meme}
+                  key={i}
+                />
+              ))
+              .reverse()}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              position: 'absolute',
+              width: '100%',
+              bottom: 20,
+            }}>
+            <Awesome5Icon name="grin-squint-tears" size={40} color="#00ff00" />
+            <Awesome5Icon name="sad-tear" size={40} color="#d40000" />
+            <Awesome5Icon name="heart" size={40} color="red" />
+          </View>
         </View>
       </React.Fragment>
     );

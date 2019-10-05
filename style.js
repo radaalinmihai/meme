@@ -25,14 +25,12 @@ const styles = StyleSheet.create({
     },
     card: { 
         width: '85%', 
-        height: '90%',
+        height: '85%',
         position: 'absolute',
-        borderRadius: 20,
+        top: '5%',
     },
     reactionEmojis: { 
         margin: 40,
-        borderRadius: 50,
-        backgroundColor: 'black',
         padding: 6
     }
 });
