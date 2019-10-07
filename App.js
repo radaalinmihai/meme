@@ -12,6 +12,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import MessagesScreen from './screens/MessagesScreen';
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import UploadMemeScreen from './screens/UploadMemeScreen';
+import EditMemeScreen from './screens/EditMemeScreen';
 
 const AppDrawer = createDrawerNavigator(
   {
@@ -19,6 +20,7 @@ const AppDrawer = createDrawerNavigator(
     Profile: ProfileScreen,
     Messages: MessagesScreen,
     UploadMeme: UploadMemeScreen,
+    EditMeme: EditMemeScreen
   },
   {
     initialRouteName: 'Home',

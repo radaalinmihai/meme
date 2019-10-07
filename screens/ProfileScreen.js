@@ -6,6 +6,7 @@ import {TouchableNativeFeedback} from 'react-native';
 import axios from 'react-native-axios';
 import config from '../axios_config';
 import {getItem} from '../async_storage';
+import BackButton from '../components/backButton';
 
 export default class ProfileScreen extends React.Component {
   state = {
@@ -44,15 +45,7 @@ export default class ProfileScreen extends React.Component {
               backgroundColor: '#242424',
               flexDirection: 'column',
             }}>
-            <TouchableNativeFeedback
-              onPress={() => this.props.navigation.goBack()}>
-              <Ionicons
-                name="ios-arrow-back"
-                color="white"
-                size={32}
-                style={{marginLeft: 20, marginTop: 5}}
-              />
-            </TouchableNativeFeedback>
+            <BackButton />
             <View
               style={{
                 flex: 1,
