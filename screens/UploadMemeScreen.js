@@ -33,8 +33,10 @@ export default class UploadMemeScreen extends React.Component {
         quality: 1,
         fixOrientation: true,
       };
-      const {uri} = await this.camera.current.takePictureAsync(options);
-      this.props.navigation.navigate('EditMeme', {uri});
+      if(this.camera.current) {
+        const {uri} = await this.camera.current.takePictureAsync(options);
+        this.props.navigation.navigate('EditMeme', {uri});
+      }
     } catch (err) {
       console.warn(err);
     }

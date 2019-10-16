@@ -5,9 +5,11 @@ import {
   View,
   StatusBar,
   TouchableNativeFeedback,
+  TextInput,
+  ScrollView,
 } from 'react-native';
 import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import {TextInput} from 'react-native-gesture-handler';
+import TextOverImage from '../components/textOverImage';
 
 export default class EditMemeScreen extends React.Component {
   state = {
@@ -15,6 +17,7 @@ export default class EditMemeScreen extends React.Component {
     unmounted: false,
     showInput: false,
     inputValue: null,
+    texts: [],
   };
   componentDidMount = () => {
     const {navigation} = this.props;
@@ -26,35 +29,64 @@ export default class EditMemeScreen extends React.Component {
     });
     navigation.addListener('willFocus', () => {
       this.setState({
+        uri: this.props.navigation.getParam('uri'),
         unmounted: true,
       });
-    });
-    this.setState({
-      uri: this.props.navigation.getParam('uri'),
     });
   };
   addTextInput = () =>
     this.setState(prevState => ({
       showInput: !prevState.showInput,
+      inputValue: null,
     }));
+  addTexts = () => {
+    if (this.state.inputValue !== null || this.state.inputValue !== '')
+      this.setState(prevState => ({
+        texts: [...prevState.texts, this.state.inputValue],
+      }));
+    this.addTextInput();
+  };
   render() {
-    const {uri, unmounted, showInput, inputValue} = this.state;
-    console.log(inputValue);
+    const {uri, unmounted, showInput, inputValue, texts} = this.state;
+    console.log(texts);
     if (uri !== null) {
       return (
         <ImageBackground source={{uri}} style={{width: '100%', height: '100%'}}>
           <StatusBar hidden={unmounted} />
-          <View style={{alignItems: 'flex-end', padding: 15}}>
-            <TouchableNativeFeedback onPress={this.addTextInput}>
-              <Awesome5Icon name="font" size={28} color="white" />
-            </TouchableNativeFeedback>
-          </View>
+          {!showInput ? (
+            <View style={{alignItems: 'flex-end', padding: 15}}>
+              <TouchableNativeFeedback onPress={this.addTextInput}>
+                <Awesome5Icon name="font" size={28} color="white" />
+              </TouchableNativeFeedback>
+            </View>
+          ) : null}
           {showInput ? (
-            <TextInput
-              value={inputValue}
-              onChangeText={text => this.setState({inputValue: text})}
-              style={{backgroundColor: 'rgba(0, 0, 0, .5)'}}
-            />
+            <ScrollView
+              contentContainerStyle={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                backgroundColor: 'rgba(0, 0, 0, .5)',
+              }}>
+              <TextInput
+                multiline
+                autoFocus
+                style={{color: 'white', fontSize: 25}}
+                value={inputValue}
+                onBlur={this.addTexts}
+                onChangeText={text => this.setState({inputValue: text})}
+              />
+            </ScrollView>
+          ) : null}
+          {texts.length > 0 ? (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              {texts.map((val, i) => (
+                <TextOverImage key={i}>{val}</TextOverImage>
+              ))}
+            </View>
           ) : null}
         </ImageBackground>
       );

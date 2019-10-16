@@ -18,23 +18,40 @@ export default class LoginScreen extends React.Component {
   state = {
     username: '',
     password: '',
+    error: false,
+    errorMessage: null,
   };
+  componentDidMount = () => {
+    const {navigation} = this.props;
+    navigation.addListener('willBlur', () => {
+      this.setState({
+        error: false,
+        errorMessage: null
+      });
+    });
+  }
   goToRegister = () => this.props.navigation.navigate('Register');
   login = () => {
+    const {username, password} = this.state;
+    const data = {username, password};
     axios
-      .post('/login', this.state, config)
+      .post('/login', data, config)
       .then(async res => {
         await storeItem('@token', res.data.success.token);
         this.props.navigation.navigate('App');
       })
       .catch(error => {
-        if(error.response) {
-          console.log(error.response);
-        }
+        if (error.response.status === 401)
+          this.setState({
+            error: true,
+            errorMessage: error.response.data.error,
+            username: null,
+            password: null,
+          });
       });
   };
   render() {
-    const {username, password} = this.state;
+    const {username, password, error, errorMessage} = this.state;
     return (
       <React.Fragment>
         <StatusBar barStyle="light-content" backgroundColor="#212121" />
@@ -48,40 +65,76 @@ export default class LoginScreen extends React.Component {
             alignSelf: 'center',
             backgroundColor: '#242424',
           }}>
-          <View style={{marginBottom: 50}}>
-            <Text style={{fontSize: 32, textAlign: 'center', color: '#cccccc'}}>
-              Sign In
-            </Text>
-          </View>
+          <Text
+            style={[
+              {
+                fontSize: 32,
+                textAlign: 'center',
+                color: '#cccccc',
+              },
+              !error ? {marginBottom: 50} : null,
+            ]}>
+            Sign In
+          </Text>
+          {error ? (
+            <View
+              style={{
+                backgroundColor: '#ff5145',
+                padding: 10,
+                marginTop: 10,
+                marginBottom: 10,
+                borderRadius: 6,
+                borderWidth: 2,
+                borderColor: '#8a0000',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  color: '#cccccc',
+                  textAlign: 'center',
+                }}>
+                {errorMessage}
+              </Text>
+            </View>
+          ) : null}
           <View>
             <Awesome5Icon.Button
-              style={styles.input}
+              style={[
+                styles.input,
+                error ? {borderColor: '#ff5145'} : {borderColor: '#cccccc'},
+              ]}
               backgroundColor="transparent"
               name="user"
-              color="#cccccc"
+              /* color={error ? '#ff5145' : '#cccccc'} */
+              color='#ccc'
               size={20}
               solid>
               <TextInput
                 style={{color: 'white'}}
                 placeholder="Username"
+                placeholderTextColor={error ? '#ff5145' : '#cccccc'}
                 textContentType="username"
                 value={username}
-                placeholderTextColor="#cccccc"
                 onChangeText={text => this.setState({username: text})}
               />
             </Awesome5Icon.Button>
             <MaterialCom.Button
-              style={styles.input}
+              style={[
+                styles.input,
+                error ? {borderColor: '#ff5145'} : {borderColor: '#cccccc'},
+              ]}
               backgroundColor="transparent"
               name="onepassword"
-              color="#cccccc"
+              /* color={error ? '#ff5145' : '#cccccc'} */
+              color='#ccc'
               size={20}>
               <TextInput
+                secureTextEntry={true}
                 style={{color: 'white'}}
                 placeholder="Password"
+                placeholderTextColor={error ? '#ff5145' : '#cccccc'}
                 textContentType="password"
                 value={password}
-                placeholderTextColor="#cccccc"
                 onChangeText={text => this.setState({password: text})}
               />
             </MaterialCom.Button>
