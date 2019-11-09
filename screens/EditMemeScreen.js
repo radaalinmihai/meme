@@ -40,7 +40,7 @@ export default class EditMemeScreen extends React.Component {
       inputValue: null,
     }));
   addTexts = () => {
-    if (this.state.inputValue !== null || this.state.inputValue !== '')
+    if (this.state.inputValue !== null && this.state.inputValue !== '')
       this.setState(prevState => ({
         texts: [...prevState.texts, this.state.inputValue],
       }));
@@ -63,16 +63,14 @@ export default class EditMemeScreen extends React.Component {
           {showInput ? (
             <ScrollView
               contentContainerStyle={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
+                top: 0,
+                left: 0,
                 width: '100%',
                 height: '100%',
                 position: 'absolute',
                 backgroundColor: 'rgba(0, 0, 0, .5)',
               }}>
               <TextInput
-                multiline
                 autoFocus
                 style={{color: 'white', fontSize: 25}}
                 value={inputValue}
@@ -81,8 +79,9 @@ export default class EditMemeScreen extends React.Component {
               />
             </ScrollView>
           ) : null}
-          {texts.length > 0 ? (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          {texts.length > 0 && !showInput ? (
+            <View
+              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
               {texts.map((val, i) => (
                 <TextOverImage key={i}>{val}</TextOverImage>
               ))}
