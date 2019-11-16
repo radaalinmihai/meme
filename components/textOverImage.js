@@ -9,8 +9,10 @@ export default class TextOverImage extends React.Component {
       fontSize: 20
     };
 
-    this.animatedText = new Animated.ValueXY();
-    this._value = {x: 0, y: 0};
+    const {texts} = this.props;
+
+    this.animatedText = new Animated.ValueXY({ x: 0, y: texts.y});
+    this._value = {x: 0, y: texts.y};
     this.animatedText.addListener((value) => (this._value = value));
     this.pan = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -28,10 +30,15 @@ export default class TextOverImage extends React.Component {
           dy: this.animatedText.y,
         },
       ]),
+      onPanResponderRelease: (event, gestureState) => {
+        console.log(this._value.y);
+        this.props.keep(this.props.index, this._value.y);
+      }
     });
   }
   render() {
-    const {fontSize} = this.state;
+    const {fontSize} = this.state,
+          {texts} = this.props;
     return (
       <Animated.View
         {...this.pan.panHandlers}
@@ -42,7 +49,7 @@ export default class TextOverImage extends React.Component {
             color: 'white',
             textAlign: 'center'
           }}>
-          {this.props.children}
+          {texts.text}
         </Text>
       </Animated.View>
     );

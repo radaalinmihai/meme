@@ -42,10 +42,15 @@ export default class EditMemeScreen extends React.Component {
   addTexts = () => {
     if (this.state.inputValue !== null && this.state.inputValue !== '')
       this.setState(prevState => ({
-        texts: [...prevState.texts, this.state.inputValue],
+        texts: [...prevState.texts, {text: this.state.inputValue, y: 0}],
       }));
     this.addTextInput();
   };
+  keep = (index, yPos) => {
+    this.setState(prevState => ({
+      texts: prevState.texts.map((val, i) => i == index ? {text: val.text, y: yPos} : val)
+    }));
+  }
   render() {
     const {uri, unmounted, showInput, inputValue, texts} = this.state;
     console.log(texts);
@@ -83,7 +88,7 @@ export default class EditMemeScreen extends React.Component {
             <View
               style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
               {texts.map((val, i) => (
-                <TextOverImage key={i}>{val}</TextOverImage>
+                <TextOverImage index={i} keep={this.keep} texts={val} key={i} />
               ))}
             </View>
           ) : null}
