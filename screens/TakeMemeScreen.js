@@ -4,19 +4,21 @@ import {
   Text,
   Dimensions,
   StatusBar,
-  TouchableNativeFeedback,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import BackButton from '../components/backButton';
 
-export default class UploadMemeScreen extends React.Component {
+export default class TakeMemeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.camera = React.createRef();
     this.state = {
       unmounted: false,
+      type: 'back',
     };
+    this.camera = React.createRef();
   }
   componentDidMount = () => {
     const {navigation} = this.props;
@@ -32,8 +34,9 @@ export default class UploadMemeScreen extends React.Component {
       const options = {
         quality: 1,
         fixOrientation: true,
+        mirrorImage: true,
       };
-      if(this.camera.current) {
+      if (this.camera.current) {
         const {uri} = await this.camera.current.takePictureAsync(options);
         this.props.navigation.navigate('EditMeme', {uri});
       }
@@ -41,9 +44,13 @@ export default class UploadMemeScreen extends React.Component {
       console.warn(err);
     }
   };
+  reverseCam = () => this.setState(prevState => ({
+    type: prevState.type == 'back' ? 'front' : 'back'
+  }));
   render() {
     const {width, height} = Dimensions.get('window');
-    const {unmounted} = this.state;
+    const {unmounted, type} = this.state;
+    console.log(type);
     if (unmounted)
       return (
         <View>
@@ -52,31 +59,25 @@ export default class UploadMemeScreen extends React.Component {
             ref={this.camera}
             style={{width: width, height: height}}
             captureAudio={false}
-            type={RNCamera.Constants.Type.back}>
-            <View style={{flex: 1}}>
+            type={RNCamera.Constants.Type[type]}>
+            <View style={{flex: 1, justifyContent: 'space-between'}}>
               <BackButton />
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-end',
-                }}>
-                <Awesome5Icon name="images" color="white" size={32} solid />
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                }}>
-                <TouchableNativeFeedback onPress={this.takePicture}>
-                  <Awesome5Icon
-                    name="circle"
-                    color="white"
-                    style={{marginBottom: 50}}
-                    size={100}
-                  />
-                </TouchableNativeFeedback>
+              <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', marginBottom: 30}}>
+                <TouchableWithoutFeedback onPress={() => console.log('pressed')}>
+                  <View>
+                    <Awesome5Icon name='images' size={30} solid color='white' />
+                  </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={this.takePicture}>
+                  <View>
+                    <Awesome5Icon name='circle' size={100} color='white' />
+                  </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={this.reverseCam}>
+                  <View>
+                    <Ionicons name='md-reverse-camera' size={30} color='white' solid />
+                  </View>
+                </TouchableWithoutFeedback>
               </View>
             </View>
           </RNCamera>

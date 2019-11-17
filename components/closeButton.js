@@ -1,19 +1,20 @@
 import React from 'react';
-import {TouchableNativeFeedback} from 'react-native';
+import {TouchableWithoutFeedback, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {withNavigation} from 'react-navigation';
 
 class CloseButton extends React.Component {
   render() {
     return (
-      <TouchableNativeFeedback onPress={() => this.props.navigation.goBack()}>
-        <Ionicons
-          name="md-close"
-          color="white"
-          size={32}
-          style={{marginLeft: 20, marginTop: 20}}
-        />
-      </TouchableNativeFeedback>
+      <TouchableWithoutFeedback onPress={() => this.props.navigation.goBack()}>
+        <View style={{width: 32, alignItems: 'center'}}>
+          <Ionicons
+            name="md-close"
+            color="white"
+            size={32}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

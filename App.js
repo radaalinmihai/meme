@@ -11,7 +11,7 @@ import Drawer from './components/Drawer';
 import ProfileScreen from './screens/ProfileScreen';
 import MessagesScreen from './screens/MessagesScreen';
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
-import UploadMemeScreen from './screens/UploadMemeScreen';
+import TakeMemeScreen from './screens/TakeMemeScreen';
 import EditMemeScreen from './screens/EditMemeScreen';
 
 const AppDrawer = createDrawerNavigator(
@@ -19,7 +19,7 @@ const AppDrawer = createDrawerNavigator(
     Home: HomeScreen,
     Profile: ProfileScreen,
     Messages: MessagesScreen,
-    UploadMeme: UploadMemeScreen,
+    UploadMeme: TakeMemeScreen,
     EditMeme: EditMemeScreen
   },
   {

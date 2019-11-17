@@ -31,7 +31,6 @@ export default class TextOverImage extends React.Component {
         },
       ]),
       onPanResponderRelease: (event, gestureState) => {
-        console.log(this._value.y);
         this.props.keep(this.props.index, this._value.y);
       }
     });
