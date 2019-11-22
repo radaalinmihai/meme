@@ -1,9 +1,9 @@
 import {
   createAppContainer,
-  createDrawerNavigator,
-  createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
+import {createDrawerNavigator} from 'react-navigation-drawer';
+import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';

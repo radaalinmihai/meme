@@ -33,7 +33,7 @@ export default class TakeMemeScreen extends React.Component {
     try {
       const options = {
         quality: 1,
-        fixOrientation: true,
+        fixOrientation: false,
         mirrorImage: true,
       };
       if (this.camera.current) {
@@ -44,38 +44,59 @@ export default class TakeMemeScreen extends React.Component {
       console.warn(err);
     }
   };
-  reverseCam = () => this.setState(prevState => ({
-    type: prevState.type == 'back' ? 'front' : 'back'
-  }));
+  reverseCam = () =>
+    this.setState(prevState => ({
+      type: prevState.type == 'back' ? 'front' : 'back',
+    }));
   render() {
     const {width, height} = Dimensions.get('window');
     const {unmounted, type} = this.state;
+    const isActive = this.props.navigation.isFocused();
     console.log(type);
-    if (unmounted)
+    if (isActive)
       return (
         <View>
+          {console.log('yes')}
           <StatusBar hidden={unmounted} />
           <RNCamera
             ref={this.camera}
+            androidCameraPermissionOptions={{
+              title: 'Permission to use camera',
+              message: 'We need your permission to use your camera',
+              buttonPositive: 'Ok',
+              buttonNegative: 'Cancel',
+            }}
             style={{width: width, height: height}}
             captureAudio={false}
             type={RNCamera.Constants.Type[type]}>
             <View style={{flex: 1, justifyContent: 'space-between'}}>
               <BackButton />
-              <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', marginBottom: 30}}>
-                <TouchableWithoutFeedback onPress={() => console.log('pressed')}>
+              <View
+                style={{
+                  justifyContent: 'space-evenly',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  marginBottom: 30,
+                }}>
+                <TouchableWithoutFeedback
+                  onPress={() => console.log('pressed')}>
                   <View>
-                    <Awesome5Icon name='images' size={30} solid color='white' />
+                    <Awesome5Icon name="images" size={30} solid color="white" />
                   </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={this.takePicture}>
                   <View>
-                    <Awesome5Icon name='circle' size={100} color='white' />
+                    <Awesome5Icon name="circle" size={100} color="white" />
                   </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={this.reverseCam}>
                   <View>
-                    <Ionicons name='md-reverse-camera' size={30} color='white' solid />
+                    <Ionicons
+                      name="md-reverse-camera"
+                      size={30}
+                      color="white"
+                      solid
+                    />
                   </View>
                 </TouchableWithoutFeedback>
               </View>
