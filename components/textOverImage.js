@@ -14,6 +14,7 @@ export default class TextOverImage extends React.Component {
 
     this.state = {
       fontSize: 20,
+      pressed: false,
     };
 
     const {texts} = this.props;
@@ -24,8 +25,8 @@ export default class TextOverImage extends React.Component {
     this._value = {x: 0, y: texts.y};
     this.animatedText.addListener(value => (this._value = value));
     this.pan = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => false,
+      onMoveShouldSetPanResponder: (e, gestureState) => Math.abs(gestureState.dy) !== 0,
       onPanResponderGrant: (e, gestureState) => {
         this.animatedText.setOffset({
           x: 0,
@@ -48,7 +49,8 @@ export default class TextOverImage extends React.Component {
       },
     });
   }
-  initEditText = () => this.props.initEditText(this.props.index, this.props.texts.text);
+  initEditText = () =>
+    this.props.initEditText(this.props.index, this.props.texts.text);
   render() {
     const {fontSize} = this.state,
       {texts} = this.props;
@@ -59,7 +61,7 @@ export default class TextOverImage extends React.Component {
           this.animatedText.getTranslateTransform(),
           {width: '100%', backgroundColor: 'rgba(0, 0, 0, .5)'},
         ]}>
-        <TouchableWithoutFeedback onPress={this.initEditText}>
+        <TouchableWithoutFeedback style={{width: '100%'}} onPress={this.initEditText}>
           <Text
             style={{
               fontSize: fontSize,

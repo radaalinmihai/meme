@@ -52,6 +52,7 @@ export default class EditMemeScreen extends React.Component {
     }));
   hideEditText = () => this.setState({showEditInput: false});
   initEditText = (index, text) => {
+    console.log('working');
     this.setState({
       showEditInput: true,
       inputValue: text,
