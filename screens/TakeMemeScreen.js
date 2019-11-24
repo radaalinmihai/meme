@@ -33,7 +33,7 @@ export default class TakeMemeScreen extends React.Component {
     try {
       const options = {
         quality: 1,
-        fixOrientation: false,
+        fixOrientation: true,
         mirrorImage: true,
       };
       if (this.camera.current) {
@@ -60,12 +60,6 @@ export default class TakeMemeScreen extends React.Component {
           <StatusBar hidden={unmounted} />
           <RNCamera
             ref={this.camera}
-            androidCameraPermissionOptions={{
-              title: 'Permission to use camera',
-              message: 'We need your permission to use your camera',
-              buttonPositive: 'Ok',
-              buttonNegative: 'Cancel',
-            }}
             style={{width: width, height: height}}
             captureAudio={false}
             type={RNCamera.Constants.Type[type]}>

@@ -5,8 +5,7 @@ import {
   View,
   StatusBar,
   TouchableNativeFeedback,
-  TextInput,
-  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -14,6 +13,9 @@ import TextOverImage from '../components/textOverImage';
 import CloseButton from '../components/closeButton';
 import AddTextInput from '../components/addTextInput';
 import EditTextInput from '../components/editTextInput';
+import {captureScreen} from 'react-native-view-shot';
+import CameraRoll from '@react-native-community/cameraroll';
+import requestCameraPermission from '../components/grantExternalMemory';
 
 export default class EditMemeScreen extends React.Component {
   constructor(props) {
@@ -27,6 +29,7 @@ export default class EditMemeScreen extends React.Component {
       inputValue: null,
       editTextIndex: null,
       texts: [],
+      hidden: false,
     };
   }
   componentDidMount = () => {
@@ -52,7 +55,6 @@ export default class EditMemeScreen extends React.Component {
     }));
   hideEditText = () => this.setState({showEditInput: false});
   initEditText = (index, text) => {
-    console.log('working');
     this.setState({
       showEditInput: true,
       inputValue: text,
@@ -79,13 +81,33 @@ export default class EditMemeScreen extends React.Component {
       ),
     }));
   };
-  resetTexts = () => this.state.texts.length > 0 ? this.setState({texts: []}) : null;
+  resetTexts = () =>
+    this.state.texts.length > 0 ? this.setState({texts: []}) : null;
   getTextInput = text => this.setState({inputValue: text});
   deleteText = () => {
     this.setState(prevState => ({
       texts: prevState.texts.filter((text, i) => i !== prevState.editTextIndex),
     }));
     console.log('deleted');
+  };
+  takeSnap = async () => {
+    this.setState(
+      {
+        hidden: true,
+      },
+      () => {
+        captureScreen({
+          format: 'jpg',
+          quality: 1,
+        })
+          .then(async uri => {
+            if (requestCameraPermission())
+              await CameraRoll.save(uri, {type: 'photo', album: 'Meme'});
+          })
+          .catch(err => console.error(err));
+        this.setState({hidden: false});
+      },
+    );
   };
   render() {
     const {
@@ -95,14 +117,22 @@ export default class EditMemeScreen extends React.Component {
       inputValue,
       texts,
       showEditInput,
-      editTextIndex
+      editTextIndex,
+      hidden,
     } = this.state;
-    console.log(texts, editTextIndex);
+    console.log(texts, hidden);
     if (uri !== null) {
       return (
-        <ImageBackground source={{uri}} style={{width: '100%', height: '100%'}}>
+        <ImageBackground
+          source={{uri}}
+          style={{
+            width: '100%',
+            height: '100%',
+            flex: 1,
+            justifyContent: 'space-between',
+          }}>
           <StatusBar hidden={unmounted} />
-          {!showInput && !showEditInput ? (
+          {!showInput && !showEditInput && !hidden ? (
             <View
               style={{
                 flexDirection: 'row',
@@ -113,7 +143,7 @@ export default class EditMemeScreen extends React.Component {
               <CloseButton />
               <View style={{flexDirection: 'row'}}>
                 <TouchableNativeFeedback onPress={this.resetTexts}>
-                  <View style={{width: 28, marginRight: 10}}>
+                  <View style={{width: 28, marginRight: 30}}>
                     <AwesomeIcon name="trash-o" size={28} color="white" />
                   </View>
                 </TouchableNativeFeedback>
@@ -142,7 +172,12 @@ export default class EditMemeScreen extends React.Component {
           />
           {texts.length > 0 && !showInput && !showEditInput ? (
             <View
-              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 900,
+              }}>
               {texts.map((val, i) => (
                 <TextOverImage
                   initEditText={this.initEditText}
@@ -152,6 +187,18 @@ export default class EditMemeScreen extends React.Component {
                   key={i}
                 />
               ))}
+            </View>
+          ) : null}
+          {!showInput && !showEditInput && !hidden ? (
+            <View
+              style={{
+                padding: 20,
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+              }}>
+              <TouchableOpacity onPress={this.takeSnap}>
+                <AwesomeIcon name="save" color="white" size={32} solid />
+              </TouchableOpacity>
             </View>
           ) : null}
         </ImageBackground>
