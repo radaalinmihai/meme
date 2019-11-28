@@ -13,20 +13,20 @@ export default class TextOverImage extends React.Component {
     super(props);
 
     this.state = {
-      fontSize: 20,
-      pressed: false,
+      fontSize: this.props.fontSize,
     };
 
-    const {texts} = this.props;
+    const {y} = this.props;
     const {height} = Dimensions.get('window'),
       proc = height * (11 / 100);
 
-    this.animatedText = new Animated.ValueXY({x: 0, y: texts.y});
-    this._value = {x: 0, y: texts.y};
+    this.animatedText = new Animated.ValueXY({x: 0, y: y});
+    this._value = {x: 0, y: y};
     this.animatedText.addListener(value => (this._value = value));
     this.pan = PanResponder.create({
       onStartShouldSetPanResponder: () => false,
-      onMoveShouldSetPanResponder: (e, gestureState) => Math.abs(gestureState.dy) !== 0,
+      onMoveShouldSetPanResponder: (e, gestureState) =>
+        Math.abs(gestureState.dy) !== 0,
       onPanResponderGrant: (e, gestureState) => {
         this.animatedText.setOffset({
           x: 0,
@@ -43,17 +43,15 @@ export default class TextOverImage extends React.Component {
             },
           ])(event, gestureState);
       },
-      onPanResponderRelease: (event, gestureState) => {
-        this.props.keep(this.props.index, this._value.y);
-        console.log(event.nativeEvent);
-      },
+      onPanResponderRelease: (event, gestureState) =>
+        this.props.keep(this.props.index, this._value.y),
     });
   }
   initEditText = () =>
-    this.props.initEditText(this.props.index, this.props.texts.text);
+    this.props.initEditText(this.props.index, this.props.text);
   render() {
     const {fontSize} = this.state,
-      {texts} = this.props;
+      {text} = this.props;
     return (
       <Animated.View
         {...this.pan.panHandlers}
@@ -61,14 +59,16 @@ export default class TextOverImage extends React.Component {
           this.animatedText.getTranslateTransform(),
           {width: '100%', backgroundColor: 'rgba(0, 0, 0, .5)'},
         ]}>
-        <TouchableWithoutFeedback style={{width: '100%'}} onPress={this.initEditText}>
+        <TouchableWithoutFeedback
+          style={{width: '100%'}}
+          onPress={this.initEditText}>
           <Text
             style={{
               fontSize: fontSize,
               color: 'white',
               textAlign: 'center',
             }}>
-            {texts.text}
+            {text}
           </Text>
         </TouchableWithoutFeedback>
       </Animated.View>

@@ -6,7 +6,7 @@ async function requestCameraPermission() {
             PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
             {
                 title: 'Meme requests storage permission',
-                message: 'Meme needs access to your storage in order to locally store your meme'
+                message: 'Meme needs access to your storage in order to locally store your memes'
             }
         );
         return granted;

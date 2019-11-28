@@ -7,9 +7,10 @@ import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       memes: [
+        require('../assets/ReactNative-snapshot-image495931964.jpg'),
         require('../assets/may.jpg'),
         require('../assets/i-dont-always-but-when-i-do-meme_thumb.jpg'),
         require('../assets/14o4xh.jpg'),

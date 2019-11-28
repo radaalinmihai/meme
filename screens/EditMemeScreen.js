@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import TextOverImage from '../components/textOverImage';
 import CloseButton from '../components/closeButton';
 import AddTextInput from '../components/addTextInput';
@@ -64,20 +65,23 @@ export default class EditMemeScreen extends React.Component {
   editText = index =>
     this.setState(prevState => ({
       texts: prevState.texts.map((val, i) =>
-        i == index ? {text: prevState.inputValue, y: val.y} : val,
+        i == index ? {...val, text: prevState.inputValue} : val,
       ),
     }));
   addTexts = () => {
     if (this.state.inputValue !== null && this.state.inputValue !== '')
       this.setState(prevState => ({
-        texts: [...prevState.texts, {text: this.state.inputValue, y: 0}],
+        texts: [
+          ...prevState.texts,
+          {text: this.state.inputValue, y: 0, fontSize: 20},
+        ],
       }));
     this.addTextInput();
   };
   keep = (index, yPos) => {
     this.setState(prevState => ({
       texts: prevState.texts.map((val, i) =>
-        i == index ? {text: val.text, y: yPos} : val,
+        i == index ? {...val, y: yPos} : val,
       ),
     }));
   };
@@ -90,6 +94,18 @@ export default class EditMemeScreen extends React.Component {
     }));
     console.log('deleted');
   };
+  increaseTextSize = index =>
+    this.setState(prevState => ({
+      texts: prevState.texts.map((val, i) =>
+        i === index ? {...val, fontSize: val.fontSize + 1} : val,
+      ),
+    }));
+  decreaseTextSize = index =>
+    this.setState(prevState => ({
+      texts: prevState.texts.map((val, i) =>
+        i === index ? {...val, fontSize: val.fontSize - 1} : val,
+      ),
+    }));
   takeSnap = async () => {
     this.setState(
       {
@@ -169,6 +185,9 @@ export default class EditMemeScreen extends React.Component {
             inputValue={inputValue}
             getTextInput={this.getTextInput}
             index={editTextIndex}
+            fontSize={editTextIndex != null ? texts[editTextIndex].fontSize : null}
+            increaseTextSize={this.increaseTextSize}
+            decreaseTextSize={this.decreaseTextSize}
           />
           {texts.length > 0 && !showInput && !showEditInput ? (
             <View
@@ -176,14 +195,13 @@ export default class EditMemeScreen extends React.Component {
                 flex: 1,
                 alignItems: 'center',
                 justifyContent: 'center',
-                zIndex: 900,
               }}>
               {texts.map((val, i) => (
                 <TextOverImage
+                  {...val}
                   initEditText={this.initEditText}
                   index={i}
                   keep={this.keep}
-                  texts={val}
                   key={i}
                 />
               ))}
@@ -194,11 +212,27 @@ export default class EditMemeScreen extends React.Component {
               style={{
                 padding: 20,
                 justifyContent: 'space-between',
-                alignItems: 'flex-start',
+                alignItems: 'center',
+                flexDirection: 'row',
               }}>
               <TouchableOpacity onPress={this.takeSnap}>
                 <AwesomeIcon name="save" color="white" size={32} solid />
               </TouchableOpacity>
+              <TouchableNativeFeedback>
+                <View
+                  style={{
+                    backgroundColor: '#009cff',
+                    padding: 10,
+                    borderRadius: 30,
+                  }}>
+                  <MaterialCommunity
+                    name="cube-send"
+                    size={40}
+                    color="white"
+                    solid
+                  />
+                </View>
+              </TouchableNativeFeedback>
             </View>
           ) : null}
         </ImageBackground>
