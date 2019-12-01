@@ -21,9 +21,11 @@ export default class TakeMemeScreen extends React.Component {
     this.camera = React.createRef();
   }
   componentDidMount = () => {
-    const {navigation} = this.props;
+    const {navigation} = this.props,
+          {width, height} = Dimensions.get('window');
     navigation.addListener('willFocus', () => this.hideStatusBar());
     navigation.addListener('willBlur', () => this.hideStatusBar());
+    setInterval(() => console.log(width, height), 1000);
   };
   hideStatusBar = () =>
     this.setState(prevState => ({

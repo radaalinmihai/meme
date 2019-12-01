@@ -14,7 +14,7 @@ import TextOverImage from '../components/textOverImage';
 import CloseButton from '../components/closeButton';
 import AddTextInput from '../components/addTextInput';
 import EditTextInput from '../components/editTextInput';
-import {captureScreen} from 'react-native-view-shot';
+import {captureRef} from 'react-native-view-shot';
 import CameraRoll from '@react-native-community/cameraroll';
 import requestCameraPermission from '../components/grantExternalMemory';
 
@@ -32,6 +32,7 @@ export default class EditMemeScreen extends React.Component {
       texts: [],
       hidden: false,
     };
+    this.image = React.createRef();
   }
   componentDidMount = () => {
     const {navigation} = this.props;
@@ -112,7 +113,7 @@ export default class EditMemeScreen extends React.Component {
         hidden: true,
       },
       () => {
-        captureScreen({
+        captureRef(this.image, {
           format: 'jpg',
           quality: 1,
         })
@@ -146,7 +147,11 @@ export default class EditMemeScreen extends React.Component {
             height: '100%',
             flex: 1,
             justifyContent: 'space-between',
-          }}>
+            backgroundColor: 'black'
+          }}
+          imageStyle={{resizeMode: 'contain', width: null, height: null}}
+          imageRef={this.image}
+          >
           <StatusBar hidden={unmounted} />
           {!showInput && !showEditInput && !hidden ? (
             <View
@@ -185,7 +190,9 @@ export default class EditMemeScreen extends React.Component {
             inputValue={inputValue}
             getTextInput={this.getTextInput}
             index={editTextIndex}
-            fontSize={editTextIndex != null ? texts[editTextIndex].fontSize : null}
+            fontSize={
+              editTextIndex != null ? texts[editTextIndex].fontSize : null
+            }
             increaseTextSize={this.increaseTextSize}
             decreaseTextSize={this.decreaseTextSize}
           />
