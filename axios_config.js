@@ -1,5 +1,5 @@
 const config = {
-    baseURL: 'http://radamihai.go.ro/meme/public/api',
+    baseURL: 'https://ratenews.net/api',
     port: 80
 };
 

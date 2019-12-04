@@ -17,15 +17,14 @@ export default class TakeMemeScreen extends React.Component {
     this.state = {
       unmounted: false,
       type: 'back',
+      orientation: '',
     };
     this.camera = React.createRef();
   }
   componentDidMount = () => {
-    const {navigation} = this.props,
-          {width, height} = Dimensions.get('window');
+    const {navigation} = this.props;
     navigation.addListener('willFocus', () => this.hideStatusBar());
     navigation.addListener('willBlur', () => this.hideStatusBar());
-    setInterval(() => console.log(width, height), 1000);
   };
   hideStatusBar = () =>
     this.setState(prevState => ({
@@ -36,11 +35,12 @@ export default class TakeMemeScreen extends React.Component {
       const options = {
         quality: 1,
         fixOrientation: true,
-        mirrorImage: true,
+        mirrorImage: false,
       };
       if (this.camera.current) {
-        const {uri} = await this.camera.current.takePictureAsync(options);
-        this.props.navigation.navigate('EditMeme', {uri});
+        const {uri, width, height} = await this.camera.current.takePictureAsync(options);
+        console.log(uri, width, height);
+        this.props.navigation.navigate('EditMeme', {uri, width, height});
       }
     } catch (err) {
       console.warn(err);
