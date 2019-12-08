@@ -13,6 +13,7 @@ import MessagesScreen from './screens/MessagesScreen';
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import TakeMemeScreen from './screens/TakeMemeScreen';
 import EditMemeScreen from './screens/EditMemeScreen';
+import CropImage from './screens/CropImage';
 
 const AppDrawer = createDrawerNavigator(
   {
@@ -20,6 +21,7 @@ const AppDrawer = createDrawerNavigator(
     Profile: ProfileScreen,
     Messages: MessagesScreen,
     UploadMeme: TakeMemeScreen,
+    CropMeme: CropImage,
     EditMeme: EditMemeScreen
   },
   {

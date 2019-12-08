@@ -14,7 +14,7 @@ import TextOverImage from '../components/textOverImage';
 import CloseButton from '../components/closeButton';
 import AddTextInput from '../components/addTextInput';
 import EditTextInput from '../components/editTextInput';
-import {captureRef} from 'react-native-view-shot';
+import {captureScreen} from 'react-native-view-shot';
 import CameraRoll from '@react-native-community/cameraroll';
 import requestCameraPermission from '../components/grantExternalMemory';
 
@@ -24,7 +24,6 @@ export default class EditMemeScreen extends React.Component {
 
     this.state = {
       uri: null,
-      orientation: 'portrait',
       unmounted: false,
       showInput: false,
       showEditInput: false,
@@ -33,15 +32,13 @@ export default class EditMemeScreen extends React.Component {
       texts: [],
       hidden: false,
     };
-    this.image = React.createRef();
   }
   componentDidMount = () => {
     const {navigation} = this.props;
+    console.log(this.image);
     navigation.addListener('willBlur', () => {
       this.setState({
         uri: null,
-        width: null,
-        height: null,
         unmounted: false,
       });
     });
@@ -51,7 +48,6 @@ export default class EditMemeScreen extends React.Component {
         uri: this.props.navigation.getParam('uri'),
         unmounted: true,
       });
-      this.checkImageOrientation();
     });
   };
   addTextInput = () =>
@@ -117,7 +113,7 @@ export default class EditMemeScreen extends React.Component {
         hidden: true,
       },
       () => {
-        captureRef(this.image, {
+        captureScreen({
           format: 'jpg',
           quality: 1,
         })
@@ -130,15 +126,6 @@ export default class EditMemeScreen extends React.Component {
       },
     );
   };
-  checkImageOrientation = () => {
-    const width = this.props.navigation.getParam('width'),
-          height = this.props.navigation.getParam('height');
-    
-    if(width > height)
-      this.setState({
-        orientation: 'landscape'
-      });
-  }
   render() {
     const {
       uri,
@@ -148,12 +135,8 @@ export default class EditMemeScreen extends React.Component {
       texts,
       showEditInput,
       editTextIndex,
-      hidden,
-      orientation,
-      width,
-      height
+      hidden
     } = this.state;
-    console.log(orientation, width, height);
     if (uri !== null) {
       return (
         <ImageBackground
@@ -165,8 +148,6 @@ export default class EditMemeScreen extends React.Component {
             justifyContent: 'space-between',
             backgroundColor: 'black'
           }}
-          imageStyle={{resizeMode: orientation === 'portrait' ? 'cover' : 'contain'}}
-          imageRef={this.image}
           >
           <StatusBar hidden={unmounted} />
           {!showInput && !showEditInput && !hidden ? (

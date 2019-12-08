@@ -9,6 +9,7 @@ export default class AuthLoadingScreen extends React.Component {
   checkToken = async () => {
     const token = await getItem('@token');
     if (token !== null) {
+      console.log(token.refresh_token);
       axios
         .post('/checkToken', '', {
           baseURL: config.baseURL,
@@ -22,15 +23,18 @@ export default class AuthLoadingScreen extends React.Component {
         .catch(err => {
           if (err.response && err.response.data.message == 'Unauthenticated.') {
             axios
-              .post('/refreshToken', '', {
-                baseURL: config.baseURL,
-                headers: {
-                  Authorization: `Bearer ${token.refresh_token}`,
+              .post(
+                '/refreshToken',
+                {refresh_token: token.refresh_token},
+                {
+                  baseURL: config.baseURL,
                 },
-              })
+              )
               .then(async res => {
                 if (res.data.success) {
+                  console.log(res.data.success.token);
                   await storeItem('@token', res.data.success.token);
+                  this.props.navigation.navigate('App');
                 }
               })
               .catch(err => {

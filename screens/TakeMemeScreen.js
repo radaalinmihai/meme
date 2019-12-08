@@ -39,8 +39,10 @@ export default class TakeMemeScreen extends React.Component {
       };
       if (this.camera.current) {
         const {uri, width, height} = await this.camera.current.takePictureAsync(options);
-        console.log(uri, width, height);
-        this.props.navigation.navigate('EditMeme', {uri, width, height});
+        if(height > width)
+          this.props.navigation.navigate('EditMeme', {uri});
+        else
+          this.props.navigation.navigate('CropMeme', {uri, width, height});
       }
     } catch (err) {
       console.warn(err);
