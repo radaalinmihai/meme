@@ -10,6 +10,7 @@ import {RNCamera} from 'react-native-camera';
 import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import BackButton from '../components/backButton';
+import Orientation from 'react-native-orientation';
 
 export default class TakeMemeScreen extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class TakeMemeScreen extends React.Component {
   }
   componentDidMount = () => {
     const {navigation} = this.props;
+    Orientation.addSpecificOrientationListener(orientation => console.log(orientation));
     navigation.addListener('willFocus', () => this.hideStatusBar());
     navigation.addListener('willBlur', () => this.hideStatusBar());
   };
@@ -31,18 +33,18 @@ export default class TakeMemeScreen extends React.Component {
       unmounted: !prevState.unmounted,
     }));
   takePicture = async () => {
+    const {type} = this.state;
     try {
       const options = {
         quality: 1,
-        fixOrientation: true,
-        mirrorImage: false,
+        orientation: 'portrait',
+        skipProcessing: false,
+        mirrorImage: type === 'front',
+        fixOrientation: type === 'front',
       };
       if (this.camera.current) {
-        const {uri, width, height} = await this.camera.current.takePictureAsync(options);
-        if(height > width)
-          this.props.navigation.navigate('EditMeme', {uri});
-        else
-          this.props.navigation.navigate('CropMeme', {uri, width, height});
+        const {uri} = await this.camera.current.takePictureAsync(options);
+        this.props.navigation.navigate('EditMeme', {uri});
       }
     } catch (err) {
       console.warn(err);
@@ -50,7 +52,7 @@ export default class TakeMemeScreen extends React.Component {
   };
   reverseCam = () =>
     this.setState(prevState => ({
-      type: prevState.type == 'back' ? 'front' : 'back',
+      type: prevState.type === 'back' ? 'front' : 'back',
     }));
   render() {
     const {width, height} = Dimensions.get('window');

@@ -13,6 +13,7 @@ import config from '../axios_config';
 import {storeItem} from '../async_storage';
 import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialCom from 'react-native-vector-icons/MaterialCommunityIcons';
+import Orientation from 'react-native-orientation';
 
 export default class LoginScreen extends React.Component {
   state = {
@@ -23,6 +24,7 @@ export default class LoginScreen extends React.Component {
   };
   componentDidMount = () => {
     const {navigation} = this.props;
+    Orientation.lockToPortrait();
     navigation.addListener('willBlur', () => {
       this.setState({
         error: false,

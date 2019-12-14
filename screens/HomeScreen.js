@@ -3,6 +3,7 @@ import {View, StatusBar} from 'react-native';
 import MemeCard from '../components/MemeCard';
 import Header from '../components/Header';
 import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import Orientation from 'react-native-orientation';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ export default class HomeScreen extends React.Component {
       imageCount: 4,
     };
   }
+  componentDidMount = () => Orientation.lockToPortrait();
   increaseCards = () =>
     this.state.imageCount < this.state.memes.length
       ? this.setState({imageCount: this.state.imageCount + 1})

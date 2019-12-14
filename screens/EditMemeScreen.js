@@ -6,6 +6,7 @@ import {
   StatusBar,
   TouchableNativeFeedback,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -118,6 +119,7 @@ export default class EditMemeScreen extends React.Component {
           quality: 1,
         })
           .then(async uri => {
+            console.log(uri);
             if (requestCameraPermission())
               await CameraRoll.save(uri, {type: 'photo', album: 'Meme'});
           })
@@ -128,15 +130,15 @@ export default class EditMemeScreen extends React.Component {
   };
   render() {
     const {
-      uri,
-      unmounted,
-      showInput,
-      inputValue,
-      texts,
-      showEditInput,
-      editTextIndex,
-      hidden
-    } = this.state;
+        uri,
+        unmounted,
+        showInput,
+        inputValue,
+        texts,
+        showEditInput,
+        editTextIndex,
+        hidden,
+      } = this.state;
     if (uri !== null) {
       return (
         <ImageBackground
@@ -146,9 +148,8 @@ export default class EditMemeScreen extends React.Component {
             height: '100%',
             flex: 1,
             justifyContent: 'space-between',
-            backgroundColor: 'black'
-          }}
-          >
+            backgroundColor: 'black',
+          }}>
           <StatusBar hidden={unmounted} />
           {!showInput && !showEditInput && !hidden ? (
             <View
