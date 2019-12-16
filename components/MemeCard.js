@@ -83,8 +83,8 @@ export default class MemeCard extends React.Component {
       },
       onPanResponderRelease: (e, gesture) => {
         let x = 0;
-        if (gesture.dx > 120) x = width + 20;
-        else if (gesture.dx < -120) x = -width - 20;
+        if (gesture.dx > 120) x = width + 50;
+        else if (gesture.dx < -120) x = -width - 50;
         Animated.spring(this.pan, {toValue: {x: x, y: 0}}).start();
         if (x !== 0) this.props.increaseCards();
       },
@@ -106,7 +106,14 @@ export default class MemeCard extends React.Component {
             flex: 1,
             padding: 10,
           }}
-          imageStyle={{borderRadius: 10, flex: 1, height: null, width: null}}>
+          imageStyle={{
+            borderRadius: 10,
+            flex: 1,
+            height: null,
+            width: null,
+            borderColor: '#545454',
+            borderWidth: 2,
+          }}>
           <Animated.View style={{opacity: this.laughEmoji}}>
             <Awesome5Icon
               style={styles.reactionEmojis}

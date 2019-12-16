@@ -67,6 +67,7 @@ export default class TextOverImage extends React.Component {
               fontSize: fontSize,
               color: 'white',
               textAlign: 'center',
+              padding: 5
             }}>
             {text}
           </Text>

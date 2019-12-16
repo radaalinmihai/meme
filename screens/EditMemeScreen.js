@@ -44,7 +44,7 @@ export default class EditMemeScreen extends React.Component {
       });
     });
     navigation.addListener('willFocus', () => {
-      this.resetTexts();
+      this.reset();
       this.setState({
         uri: this.props.navigation.getParam('uri'),
         unmounted: true,
@@ -87,8 +87,10 @@ export default class EditMemeScreen extends React.Component {
       ),
     }));
   };
-  resetTexts = () =>
-    this.state.texts.length > 0 ? this.setState({texts: []}) : null;
+  reset = () =>
+    this.state.texts.length > 0
+      ? this.setState({texts: [], editTextIndex: null})
+      : null;
   getTextInput = text => this.setState({inputValue: text});
   deleteText = () => {
     this.setState(prevState => ({
@@ -130,15 +132,15 @@ export default class EditMemeScreen extends React.Component {
   };
   render() {
     const {
-        uri,
-        unmounted,
-        showInput,
-        inputValue,
-        texts,
-        showEditInput,
-        editTextIndex,
-        hidden,
-      } = this.state;
+      uri,
+      unmounted,
+      showInput,
+      inputValue,
+      texts,
+      showEditInput,
+      editTextIndex,
+      hidden,
+    } = this.state;
     if (uri !== null) {
       return (
         <ImageBackground
@@ -159,7 +161,7 @@ export default class EditMemeScreen extends React.Component {
                 margin: 15,
                 justifyContent: 'space-between',
               }}>
-              <CloseButton />
+              <CloseButton back={() => this.props.navigation.navigate('UploadMeme')} />
               <View style={{flexDirection: 'row'}}>
                 <TouchableNativeFeedback onPress={this.resetTexts}>
                   <View style={{width: 28, marginRight: 30}}>

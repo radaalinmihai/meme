@@ -8,7 +8,7 @@ import Orientation from 'react-native-orientation';
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       memes: [
         require('../assets/ReactNative-snapshot-image495931964.jpg'),
@@ -61,15 +61,14 @@ export default class HomeScreen extends React.Component {
         <View
           style={{
             backgroundColor: '#242424',
-            height: '90%',
             justifyContent: 'center',
+            height: '100%'
           }}>
           <View
             style={{
               position: 'relative',
               alignItems: 'center',
-              width: '100%',
-              height: '95%',
+              height: '90%'
             }}>
             {memes
               .slice(0, imageCount)
@@ -81,19 +80,6 @@ export default class HomeScreen extends React.Component {
                 />
               ))
               .reverse()}
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              alignItems: 'center',
-              position: 'absolute',
-              width: '100%',
-              bottom: 20,
-            }}>
-            <Awesome5Icon name="grin-squint-tears" size={40} color="#00ff00" />
-            <Awesome5Icon name="sad-tear" size={40} color="#d40000" />
-            <Awesome5Icon name="heart" size={40} color="red" />
           </View>
         </View>
       </React.Fragment>

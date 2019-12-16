@@ -6,7 +6,7 @@ import {withNavigation} from 'react-navigation';
 class CloseButton extends React.Component {
   render() {
     return (
-      <TouchableWithoutFeedback onPress={() => this.props.navigation.goBack()}>
+      <TouchableWithoutFeedback onPress={this.props.back !== null ? this.props.back : () => this.props.navigation.goBack()}>
         <View style={{width: 32, alignItems: 'center'}}>
           <Ionicons
             name="md-close"
