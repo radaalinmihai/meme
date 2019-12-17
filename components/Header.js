@@ -9,14 +9,14 @@ class Header extends React.Component {
     return (
       <View
         style={{
-          padding: 20,
+          padding: 15,
           flexDirection: 'row',
           alignItems: 'center',
           backgroundColor: '#2b2b2b',
         }}>
         <StatusBar barStyle="light-content" backgroundColor="#212121" />
         <TouchableNativeFeedback onPress={this.props.navigation.openDrawer}>
-          <AntIcon name="menu-unfold" color="white" size={32} />
+          <AntIcon name="menu-unfold" color="white" size={25} />
         </TouchableNativeFeedback>
         <View
           style={{
@@ -28,7 +28,7 @@ class Header extends React.Component {
             onPress={() => this.props.navigation.navigate('UploadMeme')}>
             <AntIcon
               name="plus"
-              size={32}
+              size={25}
               color="white"
               style={{marginRight: 30}}
             />
@@ -39,7 +39,7 @@ class Header extends React.Component {
               name="notification"
               style={{marginRight: 30}}
               color="white"
-              size={32}
+              size={25}
             />
           </TouchableNativeFeedback>
           <TouchableNativeFeedback
@@ -48,12 +48,12 @@ class Header extends React.Component {
               name="message1"
               style={{marginRight: 30}}
               color="white"
-              size={32}
+              size={25}
             />
           </TouchableNativeFeedback>
           <TouchableNativeFeedback
             onPress={() => this.props.navigation.navigate('Profile')}>
-            <AwesomeIcon name="user-circle" size={32} color="white" />
+            <AwesomeIcon name="user-circle" size={25} color="white" />
           </TouchableNativeFeedback>
         </View>
       </View>
