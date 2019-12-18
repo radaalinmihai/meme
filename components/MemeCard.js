@@ -20,6 +20,7 @@ export default class MemeCard extends React.Component {
 
     this.state = {
       favorite: false,
+      showInfo: false,
     };
 
     const {width} = Dimensions.get('window');
@@ -57,7 +58,7 @@ export default class MemeCard extends React.Component {
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => false,
       onMoveShouldSetPanResponder: (e, gestureState) =>
-        Math.abs(gestureState.dy) !== 0,
+        Math.abs(gestureState.dx) !== 0,
       onPanResponderGrant: () => {
         this.pan.setOffset({
           x: this._value.x,
@@ -118,92 +119,115 @@ export default class MemeCard extends React.Component {
       }),
     ]).start();
   };
+  showInfo = () =>
+    this.setState(prevState => ({showInfo: !prevState.showInfo}));
   render() {
     const {meme} = this.props,
-      {favorite} = this.state;
+      {favorite, showInfo} = this.state;
     return (
-      <TouchableWithoutFeedback onPress={() => console.log('hey')}>
-        <Animated.View
-          {...this.panResponder.panHandlers}
-          style={[styles.card, this.rotateAndTranslate]}>
-          <ImageBackground
-            source={meme}
-            style={{
-              width: '100%',
-              height: '100%',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              flex: 1,
-              overflow: 'hidden',
-            }}
-            imageStyle={{
-              borderRadius: 10,
-              flex: 1,
-              height: null,
-              width: null,
-              borderColor: '#363636',
-              borderWidth: 2,
-            }}>
-            <LinearGradient
-              colors={['rgba(0, 0, 0, .8)', 'rgba(0, 0, 0, .7)', 'transparent']}
-              start={{x: 0, y: 0.6}}
-              end={{x: 0, y: 1}}
-              style={{padding: 20, flexDirection: 'row', alignItems: 'center'}}>
-              <AwesomeIcon name="user-circle-o" size={30} color="white" />
-              <View style={{marginLeft: 10}}>
-                <Text style={{color: 'white'}}>Name</Text>
-                <Text style={{color: 'white'}}>Button follow sau unfollow</Text>
-              </View>
-            </LinearGradient>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                flex: 1,
-              }}>
-              <Animated.View style={{opacity: this.laughEmoji}}>
-                <Awesome5Icon
-                  style={styles.reactionEmojis}
-                  name="grin-squint-tears"
-                  size={60}
-                  color="#00ff00"
-                  solid
-                />
-              </Animated.View>
-              <Animated.View style={{opacity: this.angryEmoji}}>
-                <Awesome5Icon
-                  style={styles.reactionEmojis}
-                  name="sad-tear"
-                  size={60}
-                  color="#d40000"
-                  solid
-                />
-              </Animated.View>
-            </View>
-            <LinearGradient
-              colors={['transparent', 'rgba(0, 0, 0, .7)', 'rgba(0, 0, 0, .8)']}
-              start={{x: 0, y: 0.2}}
-              end={{x: 0, y: 0.7}}
+      <Animated.View
+        {...this.panResponder.panHandlers}
+        style={[styles.card, this.rotateAndTranslate]}>
+        <TouchableWithoutFeedback onPress={this.showInfo}>
+          <View style={{width: '100%', height: '100%'}}>
+            <ImageBackground
+              source={meme}
               style={{
                 width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingVertical: 20,
+                height: '100%',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                flex: 1,
+                overflow: 'hidden',
+              }}
+              imageStyle={{
+                borderRadius: 10,
+                flex: 1,
+                height: null,
+                width: null,
+                borderColor: '#363636',
+                borderWidth: 2,
               }}>
-              <TouchableNativeFeedback onPress={this.favoriteIt}>
-                <Animated.View style={{transform: [{scale: this.favorite}]}}>
+              {showInfo && (
+                <LinearGradient
+                  colors={[
+                    'rgba(0, 0, 0, .8)',
+                    'rgba(0, 0, 0, .7)',
+                    'transparent',
+                  ]}
+                  start={{x: 0, y: 0.6}}
+                  end={{x: 0, y: 1}}
+                  style={{
+                    padding: 20,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <AwesomeIcon name="user-circle-o" size={30} color="white" />
+                  <View style={{marginLeft: 10}}>
+                    <Text style={{color: 'white'}}>Name</Text>
+                    <Text style={{color: 'white'}}>
+                      Button follow sau unfollow
+                    </Text>
+                  </View>
+                </LinearGradient>
+              )}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  flex: 1,
+                }}>
+                <Animated.View style={{opacity: this.laughEmoji}}>
                   <Awesome5Icon
-                    name="heart"
-                    size={35}
-                    color={favorite ? '#a60202' : 'white'}
-                    solid={favorite}
+                    style={styles.reactionEmojis}
+                    name="grin-squint-tears"
+                    size={60}
+                    color="#00ff00"
+                    solid
                   />
                 </Animated.View>
-              </TouchableNativeFeedback>
-            </LinearGradient>
-          </ImageBackground>
-        </Animated.View>
-      </TouchableWithoutFeedback>
+                <Animated.View style={{opacity: this.angryEmoji}}>
+                  <Awesome5Icon
+                    style={styles.reactionEmojis}
+                    name="sad-tear"
+                    size={60}
+                    color="#d40000"
+                    solid
+                  />
+                </Animated.View>
+              </View>
+              {showInfo && (
+                <LinearGradient
+                  colors={[
+                    'transparent',
+                    'rgba(0, 0, 0, .7)',
+                    'rgba(0, 0, 0, .8)',
+                  ]}
+                  start={{x: 0, y: 0.2}}
+                  end={{x: 0, y: 0.7}}
+                  style={{
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 20,
+                  }}>
+                  <TouchableNativeFeedback onPress={this.favoriteIt}>
+                    <Animated.View
+                      style={{transform: [{scale: this.favorite}]}}>
+                      <Awesome5Icon
+                        name="heart"
+                        size={35}
+                        color={favorite ? '#a60202' : 'white'}
+                        solid={favorite}
+                      />
+                    </Animated.View>
+                  </TouchableNativeFeedback>
+                </LinearGradient>
+              )}
+            </ImageBackground>
+          </View>
+        </TouchableWithoutFeedback>
+      </Animated.View>
     );
   }
 }

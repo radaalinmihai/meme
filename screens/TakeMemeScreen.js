@@ -28,10 +28,11 @@ export default class TakeMemeScreen extends React.Component {
     navigation.addListener('willFocus', () => this.hideStatusBar());
     navigation.addListener('willBlur', () => this.hideStatusBar());
   };
-  hideStatusBar = () =>
+  hideStatusBar = () => {
     this.setState(prevState => ({
       unmounted: !prevState.unmounted,
     }));
+  }
   takePicture = async () => {
     const {type} = this.state;
     try {
