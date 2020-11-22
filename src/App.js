@@ -1,23 +1,19 @@
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import React from 'react';
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
 import useUser from './hooks/useUser';
 import MainNavigator from './navigators/Main';
-import rootReducer from './storage/reducers/rootReducer';
+import AuthenticationNavigator from './navigators/Authentication';
 
-const store = createStore(rootReducer);
 const Stack = createStackNavigator();
 
 const App = () => {
-  const {isLogged} = useUser();
+  const {isLogged, user} = useUser();
+  console.log(user);
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <MainNavigator Stack={Stack} />
-      </NavigationContainer>
-    </Provider>
+    <NavigationContainer>
+      {isLogged ? <MainNavigator Stack={Stack} /> : <AuthenticationNavigator Stack={Stack} />}
+    </NavigationContainer>
   );
 };
 
