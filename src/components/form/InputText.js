@@ -5,7 +5,7 @@ import {ERROR_COLOR, WHITE} from '../../styles/colors';
 const InputText = (props) => {
 	const hasErrors = () => Object.keys(props.errors).length > 0 && props.errors.hasOwnProperty(props.name);
   const addBorderError = () => hasErrors() && styles.errorBorder;
-  console.log(props.isValid);
+  
   return (
     <View style={styles.inputContainer}>
       <TextInput

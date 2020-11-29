@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import useUser from './hooks/useUser';
-import MainNavigator from './navigators/Main';
+import MainNavigator from './navigators/MainTab';
 import AuthenticationNavigator from './navigators/Authentication';
+import {AuthProvider} from './contexts/auth/AuthContext';
+import axios from 'axios';
 
-const Stack = createStackNavigator();
+const baseURL = process.env.REACT_APP_API_URL;
 
 const App = () => {
-  const {isLogged, user} = useUser();
-  console.log(user);
+  useEffect(() => {
+    axios.defaults.baseURL = baseURL;
+  }, []);
+
   return (
-    <NavigationContainer>
-      {isLogged ? <MainNavigator Stack={Stack} /> : <AuthenticationNavigator Stack={Stack} />}
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        {/* <AuthenticationNavigator Stack={Stack} /> */}
+        <MainNavigator />
+      </NavigationContainer>
+    </AuthProvider>
   );
 };
 

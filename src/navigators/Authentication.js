@@ -3,8 +3,11 @@ import {StatusBar} from 'react-native';
 import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';
 import {SCREEN_BACKGROUND} from '../styles/colors';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const AuthenticationNavigator = ({Stack}) => {
+const Stack = createStackNavigator();
+
+const AuthenticationNavigator = () => {
   return (
     <>
       <StatusBar animated backgroundColor={SCREEN_BACKGROUND} />

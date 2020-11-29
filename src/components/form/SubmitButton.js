@@ -1,15 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { SUBMIT_BUTTON_BACKGROUND, WHITE } from '../../styles/colors';
 
 const SubmitButton = ({children, onPress, disabled}) => {
   const addDisabledStyle = () => disabled && styles.disabledButton;
   return (
-    <TouchableHighlight onPress={onPress} disabled={disabled}>
+    <TouchableWithoutFeedback onPress={onPress} disabled={disabled}>
       <View style={[styles.button, addDisabledStyle()]}>
         <Text style={styles.buttonText}>{children}</Text>
       </View>
-    </TouchableHighlight>
+    </TouchableWithoutFeedback>
   );
 };
 
