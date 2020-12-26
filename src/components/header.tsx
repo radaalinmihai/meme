@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import { DELIMITATOR_COLOR } from '../styles/colors';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-export default function Header() {
+export default function Header(): JSX.Element {
   return (
     <View style={styles.container}>
         <MaterialIcon name='add' color='white' size={40} />

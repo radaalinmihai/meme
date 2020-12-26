@@ -1,4 +1,4 @@
-import {Formik} from 'formik';
+import { Formik, FormikHelpers, FormikProps, FormikValues } from "formik";
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import InputText from '../components/form/InputText';
@@ -7,13 +7,19 @@ import Logo from '../components/Logo';
 import {LoginValidator} from '../helpers/validators';
 import useAuth from '../hooks/useAuth';
 import authStyles from '../styles/authStyles';
+import { StackScreenProps } from "@react-navigation/stack";
 
-const LoginScreen = ({navigation}) => {
+interface ILogin {
+  username: string;
+  password: string;
+}
+
+const LoginScreen = ({navigation}: StackScreenProps<any>): JSX.Element => {
   const {state, login} = useAuth();
 
   console.log(state);
 
-  const submitLogin = (values, actions) => {
+  const submitLogin = (values: ILogin, actions: FormikHelpers<ILogin>) => {
     login(values);
     actions.setSubmitting(false);
   }
@@ -36,7 +42,7 @@ const LoginScreen = ({navigation}) => {
         }}>
         {(props) => (
           <View style={authStyles.formWrapper}>
-            <InputText {...props} name="username" placeholder="Username" />
+            <InputText {...props} name="username" placeholder="Username" placeholderColor='white' />
             <InputText
               {...props}
               name="password"
