@@ -9,7 +9,7 @@ import {StatusBar, TouchableNativeFeedback, View} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 // Export each of the components bellow to its own function
-const MainNavigator = () => {
+const MainNavigator = (): JSX.Element => {
   return (
     <>
       <StatusBar backgroundColor={SCREEN_BACKGROUND} />
@@ -28,7 +28,7 @@ const MainNavigator = () => {
             );
           },
           tabBarIcon: ({focused}) => {
-            let iconName;
+            let iconName: string;
 
             switch (route.name) {
               case 'MainStack':
@@ -42,6 +42,7 @@ const MainNavigator = () => {
                 break;
             }
 
+            // @ts-ignore
             return <MaterialIcon name={iconName} size={38} color={focused ? "#696969" : "white"} />;
           },
         })}

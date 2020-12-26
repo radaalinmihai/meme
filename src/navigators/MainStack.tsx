@@ -6,7 +6,7 @@ import {SCREEN_BACKGROUND} from '../styles/colors';
 
 const Stack = createStackNavigator();
 
-export default function MainStack() {
+const MainStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="Home"
@@ -22,3 +22,5 @@ export default function MainStack() {
     </Stack.Navigator>
   );
 }
+
+export default MainStack;

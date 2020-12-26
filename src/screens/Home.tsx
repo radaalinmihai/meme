@@ -1,20 +1,24 @@
 import React from 'react';
-import { FlatList, ImageBackground, StyleSheet, Text } from 'react-native';
-import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
+import { FlatList, ImageBackground, StyleSheet, Text, useWindowDimensions } from 'react-native';
 
-const image = 'https://via.placeholder.com/720x1280';
+const image: string = 'https://via.placeholder.com/720x1280';
 
-const dummyDatas = Array(12)
+interface IDummy {
+  index: number;
+  uri: string;
+}
+
+const dummyData: Array<IDummy> = Array(12)
   .fill({})
   .map((_, index) => ({ index, uri: image }));
-console.log(dummyDatas);
+console.log(dummyData);
 
-const HomeScreen = () => {
+const HomeScreen = (): JSX.Element => {
   const { width, height } = useWindowDimensions();
   console.log(width, height);
   return (
     <FlatList
-      data={dummyDatas}
+      data={dummyData}
       keyExtractor={({ index }) => index.toString()}
       contentContainerStyle={styles.container}
       inverted

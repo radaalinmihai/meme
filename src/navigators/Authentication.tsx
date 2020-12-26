@@ -7,13 +7,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-const AuthenticationNavigator = () => {
+const AuthenticationNavigator = (): JSX.Element => {
   return (
     <>
       <StatusBar animated backgroundColor={SCREEN_BACKGROUND} />
       <Stack.Navigator
         headerMode="none"
-        gestureEnabled
         screenOptions={{
           cardStyle: {
             backgroundColor: SCREEN_BACKGROUND,

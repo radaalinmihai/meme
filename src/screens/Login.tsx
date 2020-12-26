@@ -1,12 +1,12 @@
 import { Formik, FormikHelpers, FormikProps, FormikValues } from "formik";
-import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
-import InputText from '../components/form/InputText';
-import SubmitButton from '../components/form/SubmitButton';
-import Logo from '../components/Logo';
-import {LoginValidator} from '../helpers/validators';
-import useAuth from '../hooks/useAuth';
-import authStyles from '../styles/authStyles';
+import React from "react";
+import { ScrollView, Text, View } from "react-native";
+import InputText from "../components/form/InputText";
+import SubmitButton from "../components/form/SubmitButton";
+import Logo from "../components/Logo";
+import { LoginValidator } from "../helpers/validators";
+import useAuth from "../hooks/useAuth";
+import authStyles from "../styles/authStyles";
 import { StackScreenProps } from "@react-navigation/stack";
 
 interface ILogin {
@@ -14,18 +14,18 @@ interface ILogin {
   password: string;
 }
 
-const LoginScreen = ({navigation}: StackScreenProps<any>): JSX.Element => {
-  const {state, login} = useAuth();
+const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
+  const { state, login } = useAuth();
 
   console.log(state);
 
   const submitLogin = (values: ILogin, actions: FormikHelpers<ILogin>) => {
     login(values);
     actions.setSubmitting(false);
-  }
+  };
 
   const redirectToRegister = () => {
-    navigation.push('Register');
+    navigation.push("Register");
   };
 
   return (
@@ -37,21 +37,32 @@ const LoginScreen = ({navigation}: StackScreenProps<any>): JSX.Element => {
         onSubmit={submitLogin}
         validationSchema={LoginValidator}
         initialValues={{
-          username: '',
-          password: '',
+          username: "",
+          password: ""
         }}>
-        {(props) => (
+        {({ handleSubmit, isValid, isSubmitting, errors, handleChange, handleBlur, values }) => (
           <View style={authStyles.formWrapper}>
-            <InputText {...props} name="username" placeholder="Username" placeholderColor='white' />
             <InputText
-              {...props}
+              values={values}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              errors={errors}
+              name="username"
+              placeholder="Username"
+              placeholderColor="white"
+            />
+            <InputText
+              values={values}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              errors={errors}
               name="password"
               placeholder="Password"
               secureTextEntry
             />
             <SubmitButton
-              onPress={props.handleSubmit}
-              disabled={!props.isValid || props.isSubmitting}>
+              onPress={handleSubmit}
+              disabled={!isValid || isSubmitting}>
               Login
             </SubmitButton>
             <Text onPress={redirectToRegister} style={authStyles.subtext}>
