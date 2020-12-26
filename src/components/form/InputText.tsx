@@ -6,18 +6,20 @@ import { ITextInput } from "../../helpers/interfaces";
 const InputText = (props: ITextInput): JSX.Element => {
   const hasErrors = (): boolean => Object.keys(props.errors).length > 0 && props.errors.hasOwnProperty(props.name);
   const addBorderError = () => hasErrors() && styles.errorBorder;
+  const value = props.values[props.name];
 
   return (
     <View style={styles.inputContainer}>
       <TextInput
         style={[styles.input, addBorderError()]}
-        placeholderTextColor={props.placeholderColor || 'white'}
+        placeholderTextColor='white'
+        placeholder={props.placeholder}
         onChangeText={props.handleChange(props.name)}
         onBlur={props.handleBlur(props.name)}
-        value={props.values[props.name]}
-        secureTextEntry={props.secureTextEntry}
+        value={value}
+        secureTextEntry={value.length > 0 ? props.secureTextEntry : false}
       />
-      <Text style={styles.errorMessage}>{props.errors[props.name]}</Text>
+      {hasErrors() && <Text style={styles.errorMessage}>{props.errors[props.name]}</Text>}
     </View>
   );
 };
@@ -25,7 +27,8 @@ const InputText = (props: ITextInput): JSX.Element => {
 const styles = StyleSheet.create({
   inputContainer: {
     paddingHorizontal: 20,
-    marginBottom: 5
+    paddingVertical: 0,
+    marginBottom: 19
   },
   input: {
     borderColor: WHITE,

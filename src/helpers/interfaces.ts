@@ -10,10 +10,14 @@ export interface IAuthCred {
   password: string;
 }
 
+export interface IRegister extends IAuthCred {
+  email: string;
+  retypePassword: string;
+}
+
 export interface ITextInput extends Pick<FormikHandlers, 'handleChange' | 'handleBlur'> {
   name: string;
   placeholder: string;
-  placeholderColor?: string;
   secureTextEntry?: boolean;
   values: FormikValues;
   errors: FormikErrors<FormikValues>;

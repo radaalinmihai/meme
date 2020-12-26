@@ -1,23 +1,31 @@
-import {StyleSheet} from 'react-native';
-import {WHITE} from './colors';
+import { StyleSheet } from "react-native";
+import { WHITE } from "./colors";
 
 const authStyles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: '30%',
     alignSelf: 'center',
-    height: '30%',
-    width: '90%',
+    width: "90%"
   },
   formWrapper: {
-    marginTop: '10%',
+    marginTop: "20%"
   },
   text: {
-    color: WHITE,
+    color: WHITE
   },
   subtext: {
-      color: WHITE,
-      alignSelf: 'center'
+    color: WHITE,
+    alignSelf: "center",
+    marginTop: 19
+  },
+  ctaWrapper: {
+    flexDirection: "column",
+    marginTop: 46
+  },
+  subtitle: {
+    color: 'white',
+    fontSize: 23,
+    alignSelf: 'center'
   }
 });
 

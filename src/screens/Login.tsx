@@ -8,18 +8,14 @@ import { LoginValidator } from "../helpers/validators";
 import useAuth from "../hooks/useAuth";
 import authStyles from "../styles/authStyles";
 import { StackScreenProps } from "@react-navigation/stack";
-
-interface ILogin {
-  username: string;
-  password: string;
-}
+import { IAuthCred } from "../helpers/interfaces";
 
 const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
   const { state, login } = useAuth();
 
   console.log(state);
 
-  const submitLogin = (values: ILogin, actions: FormikHelpers<ILogin>) => {
+  const submitLogin = (values: IAuthCred, actions: FormikHelpers<IAuthCred>) => {
     login(values);
     actions.setSubmitting(false);
   };
@@ -33,6 +29,7 @@ const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
       contentContainerStyle={authStyles.container}
       keyboardShouldPersistTaps="handled">
       <Logo />
+      <Text style={authStyles.subtitle}>- Sign in -</Text>
       <Formik
         onSubmit={submitLogin}
         validationSchema={LoginValidator}
@@ -40,34 +37,29 @@ const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
           username: "",
           password: ""
         }}>
-        {({ handleSubmit, isValid, isSubmitting, errors, handleChange, handleBlur, values }) => (
+        {(props) => (
           <View style={authStyles.formWrapper}>
             <InputText
-              values={values}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              errors={errors}
+              {...props}
               name="username"
               placeholder="Username"
-              placeholderColor="white"
             />
             <InputText
-              values={values}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              errors={errors}
+              {...props}
               name="password"
               placeholder="Password"
               secureTextEntry
             />
-            <SubmitButton
-              onPress={handleSubmit}
-              disabled={!isValid || isSubmitting}>
-              Login
-            </SubmitButton>
-            <Text onPress={redirectToRegister} style={authStyles.subtext}>
-              Don't have an account? Sign up here
-            </Text>
+            <View style={authStyles.ctaWrapper}>
+              <SubmitButton
+                onPress={props.handleSubmit}
+                disabled={!props.isValid || props.isSubmitting}>
+                Sign in
+              </SubmitButton>
+              <Text onPress={redirectToRegister} style={authStyles.subtext}>
+                Don't have an account? Sign up here
+              </Text>
+            </View>
           </View>
         )}
       </Formik>
