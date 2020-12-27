@@ -1,7 +1,7 @@
-import React from 'react';
-import { FlatList, ImageBackground, StyleSheet, Text, useWindowDimensions } from 'react-native';
+import React from "react";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 
-const image: string = 'https://via.placeholder.com/720x1280';
+const image: string = "https://picsum.photos/200/300";
 
 interface IDummy {
   index: number;
@@ -11,40 +11,47 @@ interface IDummy {
 const dummyData: Array<IDummy> = Array(12)
   .fill({})
   .map((_, index) => ({ index, uri: image }));
-console.log(dummyData);
 
+const MAX: number = 3;
+// Split these into their own components, for later
 const HomeScreen = (): JSX.Element => {
-  const { width, height } = useWindowDimensions();
-  console.log(width, height);
   return (
-    <FlatList
-      data={dummyData}
-      keyExtractor={({ index }) => index.toString()}
-      contentContainerStyle={styles.container}
-      inverted
-      renderItem={({ item: { uri }, index }) => (
-        <ImageBackground
-          key={index}
-          style={styles.image}
-          //   imageStyle={[styles.image, index === 0 && styles.toRight]}
-          source={{ uri }}>
-          <Text>Helloooooooo</Text>
-        </ImageBackground>
-      )}
-    />
+    <View style={styles.container}>
+      {dummyData.slice(0, MAX).map(dummy => {
+        console.log(dummy.index);
+        return <ImageBackground
+          key={dummy.index}
+          style={[styles.image, dummy.index === MAX - 1 ? {transform: [{rotate: '-5.27deg'}]} : {}]}
+          source={{ uri: dummy.uri }}
+        >
+          <Text style={{color: 'white'}}>jkgjfgjfgj</Text>
+        </ImageBackground>;
+      })}
+    </View>
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
+    flex: 1,
+    position: "relative",
+    alignSelf: "center",
+    width: "100%",
+    padding: "10%",
+    justifyContent: "center",
+    alignItems: "center"
   },
   image: {
-    width: '100%',
-    height: '100%',
-    flex: 1,
-    resizeMode: 'cover',
-  },
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    resizeMode: "contain",
+    borderRadius: 30,
+    overflow: "hidden"
+  }
 });
 
 export default HomeScreen;

@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import { DELIMITATOR_COLOR } from '../styles/colors';
+import {StyleSheet, View} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Header(): JSX.Element {
@@ -15,9 +14,6 @@ export default function Header(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: DELIMITATOR_COLOR,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },

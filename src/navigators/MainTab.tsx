@@ -15,12 +15,10 @@ const MainNavigator = (): JSX.Element => {
       <StatusBar backgroundColor={SCREEN_BACKGROUND} />
       <Tab.Navigator
         screenOptions={({route}) => ({
-          tabBarButton: ({children, onPress}) => {
+          tabBarButton: ({children, onPress}): JSX.Element => {
             return (
               <TouchableNativeFeedback onPress={onPress}>
                 <View style={{
-                  borderRightWidth: 1,
-                  borderRightColor: '#1F1F1F',
                   flex: 1,
                   backgroundColor: DELIMITATOR_COLOR
                 }}>{children}</View>
@@ -53,8 +51,8 @@ const MainNavigator = (): JSX.Element => {
           showLabel: false,
           style: {
             height: 58,
-            borderTopWidth: 1,
-            borderTopColor: SCREEN_BACKGROUND,
+            borderTopWidth: 0,
+            elevation: 0
           }
         }}>
         <Tab.Screen name="MainStack" component={MainStack} />
