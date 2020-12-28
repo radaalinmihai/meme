@@ -53,7 +53,7 @@ const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
             <View style={authStyles.ctaWrapper}>
               <SubmitButton
                 onPress={props.handleSubmit}
-                disabled={!props.isValid || props.isSubmitting}>
+                disabled={props.isSubmitting}>
                 Sign in
               </SubmitButton>
               <Text onPress={redirectToRegister} style={authStyles.subtext}>

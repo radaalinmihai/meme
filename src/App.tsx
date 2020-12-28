@@ -8,8 +8,8 @@ const App = (): JSX.Element => {
   return (
     <AuthProvider>
       <NavigationContainer>
-         {/*<AuthenticationNavigator />*/}
-        <MainNavigator />
+         <AuthenticationNavigator />
+        {/*<MainNavigator />*/}
       </NavigationContainer>
     </AuthProvider>
   );
