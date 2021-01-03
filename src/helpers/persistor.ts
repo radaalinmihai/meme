@@ -4,6 +4,7 @@ import { Reducer, ReducerWithoutAction } from "react";
 
 const statePersister = (key: string, initialState: IAuth): IAuth => {
   AsyncStorage.getItem(key).then((state): IAuth => {
+    console.log({ state });
     if(state === null) {
       return initialState;
     } else {
@@ -15,9 +16,9 @@ const statePersister = (key: string, initialState: IAuth): IAuth => {
   });
 };
 
-const reducerPersister = (key: string, reducer: any) => (state: IAuth, action: IAction): IAuth => {
+const reducerPersister = (key: string, reducer: any) => (state: IAuth, action: IAction) => {
+  console.log('heyy!!');
   const newState = reducer(state, action);
-  console.log({newState});
   AsyncStorage.setItem(key, JSON.stringify(newState)).then(() => {
     return newState;
   }).catch(err => {

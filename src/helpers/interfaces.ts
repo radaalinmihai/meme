@@ -1,9 +1,9 @@
 import { FormikErrors, FormikHandlers, FormikValues } from "formik";
+import { AxiosError } from "axios";
 
 export interface IAuth {
   access_token: string;
   refresh_token: string;
-  error?: string;
 };
 
 export interface IAction {
@@ -34,4 +34,10 @@ export interface IRegisterRes {
   expires_in: string;
   access_token: string;
   refresh_token: string;
+}
+
+export interface IErrorAuth extends AxiosError {
+  data: {
+    error: string
+  }
 }

@@ -18,7 +18,6 @@ const HomeScreen = (): JSX.Element => {
   return (
     <View style={styles.container}>
       {dummyData.slice(0, MAX).map(dummy => {
-        console.log(dummy.index);
         return <ImageBackground
           key={dummy.index}
           style={[styles.image, dummy.index === MAX - 1 ? {transform: [{rotate: '-5.27deg'}]} : {}]}

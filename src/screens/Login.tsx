@@ -1,5 +1,5 @@
 import { Formik, FormikHelpers, FormikProps, FormikValues } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 import InputText from "../components/form/InputText";
 import SubmitButton from "../components/form/SubmitButton";
@@ -9,20 +9,25 @@ import useAuth from "../hooks/useAuth";
 import authStyles from "../styles/authStyles";
 import { StackScreenProps } from "@react-navigation/stack";
 import { IAuthCred } from "../helpers/interfaces";
+import { showMessage } from "react-native-flash-message";
 
 const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
   const { state, login } = useAuth();
 
   console.log(state);
 
-  const submitLogin = (values: IAuthCred, actions: FormikHelpers<IAuthCred>) => {
-    login(values);
+  const submitLogin = async (values: IAuthCred, actions: FormikHelpers<IAuthCred>) => {
+    await login(values);
     actions.setSubmitting(false);
   };
 
   const redirectToRegister = () => {
     navigation.push("Register");
   };
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   return (
     <ScrollView

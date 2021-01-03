@@ -1,36 +1,47 @@
-import {useContext} from 'react';
-import {authStore} from '../contexts/auth/AuthContext';
+import { useContext } from "react";
+import { authStore } from "../contexts/auth/AuthContext";
 import { SIGN_UP } from "../contexts/auth/AuthActions";
-import { IAuthCred, IRegister, IRegisterRes } from "../helpers/interfaces";
-import axios, { AxiosResponse } from "axios";
+import { IAuth, IAuthCred, IErrorAuth, IRegister, IRegisterRes } from "../helpers/interfaces";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import httpClient from "../helpers/httpClient";
+import { showMessage } from "react-native-flash-message";
 
 export default function useAuth() {
-  const {state, dispatch} = useContext(authStore);
+  const { state: {access_token}, dispatch } = useContext<IAuth>(authStore);
 
-  const login = (data: IAuthCred): void => {
-    axios.get('https://randomuser.me/api/').then((res: any) => {
-      // dispatch({
-      //   type: GET_USER,
-      //   payload: res.data.results,
-      // });
+  const setTokens = (res: AxiosResponse<IRegisterRes>): void => {
+    const { code, access_token, refresh_token } = res.data;
+    if (code === "OK") {
+      dispatch((state: IAuth) => ({
+        ...state,
+        access_token, refresh_token
+      }));
+      showMessage({
+        message: "Success",
+        description: "Successfully logged in! Redirecting..",
+        type: "success",
+        duration: 3000
+      });
+    }
+  };
+
+  const errorOut = (err: IErrorAuth) => {
+    showMessage({
+      message: "Error",
+      description: err.response?.data.error,
+      type: "danger",
+      duration: 3000
     });
   };
 
-  const register = (data: IRegister): void => {
-    console.log({ data });
-    httpClient.post('/register', data).then((res: AxiosResponse<IRegisterRes>) => {
-      const {code, access_token, refresh_token} = res.data;
-      if(code === 'OK') {
-        dispatch({
-          type: SIGN_UP,
-          payload: {access_token, refresh_token}
-        });
-      }
-    }).catch(err => {
-      console.error(err);
-    });
-  }
+  const login = async (data: IAuthCred): Promise<void> => {
+    await httpClient.post("/login", data).then(setTokens).catch(errorOut);
+  };
 
-  return {state, login, register};
+  const register = async (data: IRegister): Promise<void> => {
+    console.log({ data });
+    await httpClient.post("/register", data).then(setTokens).catch(errorOut);
+  };
+
+  return { access_token, login, register };
 }
