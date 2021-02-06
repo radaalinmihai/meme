@@ -5,7 +5,9 @@ const authStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'center',
-    width: "90%"
+    width: "90%",
+    height: '100%',
+    justifyContent: 'center'
   },
   formWrapper: {
     marginTop: "20%"

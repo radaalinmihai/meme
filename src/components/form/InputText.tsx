@@ -14,7 +14,7 @@ const InputText = (props: ITextInput): JSX.Element => {
     <View style={styles.inputContainer}>
       <TextInput
         style={[styles.input, addBorderError()]}
-        placeholderTextColor="white"
+        placeholderTextColor={hasErrors() ? "#ff4f4f" : "white"}
         placeholder={props.placeholder}
         onChangeText={props.handleChange(props.name)}
         onBlur={props.handleBlur(props.name)}
