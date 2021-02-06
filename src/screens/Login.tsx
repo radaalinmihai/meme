@@ -16,6 +16,7 @@ const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
   console.log(state);
 
   const submitLogin = (values: IAuthCred, actions: FormikHelpers<IAuthCred>) => {
+    console.log(values);
     login(values);
     actions.setSubmitting(false);
   };
