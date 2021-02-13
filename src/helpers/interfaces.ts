@@ -2,6 +2,7 @@ import { FormikErrors, FormikHandlers, FormikValues } from "formik";
 import { AxiosError } from "axios";
 
 export interface IAuth {
+  code?: string;
   access_token: string;
   refresh_token: string;
 };
