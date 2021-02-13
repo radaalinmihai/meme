@@ -1,4 +1,11 @@
 import { FormikErrors, FormikHandlers, FormikValues } from "formik";
+import { AxiosError } from "axios";
+
+export interface IAuth {
+  code?: string;
+  access_token: string;
+  refresh_token: string;
+};
 
 export interface IAction {
   type: string;
@@ -12,13 +19,26 @@ export interface IAuthCred {
 
 export interface IRegister extends IAuthCred {
   email: string;
-  retypePassword: string;
+  c_password: string;
 }
 
-export interface ITextInput extends Pick<FormikHandlers, 'handleChange' | 'handleBlur'> {
+export interface ITextInput extends Pick<FormikHandlers, 'handleChange' | 'handleBlur' | 'getFieldMeta'> {
   name: string;
   placeholder: string;
   secureTextEntry?: boolean;
   values: FormikValues;
   errors: FormikErrors<FormikValues>;
+}
+
+export interface IRegisterRes {
+  code: string;
+  expires_in: string;
+  access_token: string;
+  refresh_token: string;
+}
+
+export interface IErrorAuth extends AxiosError {
+  data: {
+    error: string
+  }
 }

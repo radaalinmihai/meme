@@ -2,9 +2,11 @@ import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { ERROR_COLOR, WHITE } from "../../styles/colors";
 import { ITextInput } from "../../helpers/interfaces";
+import { ErrorMessage } from "formik";
 
 const InputText = (props: ITextInput): JSX.Element => {
-  const hasErrors = (): boolean => Object.keys(props.errors).length > 0 && props.errors.hasOwnProperty(props.name);
+  const {touched, error} = props.getFieldMeta(props.name);
+  const hasErrors = (): boolean => touched && error !== undefined;
   const addBorderError = () => hasErrors() && styles.errorBorder;
   const value = props.values[props.name];
 
@@ -12,14 +14,14 @@ const InputText = (props: ITextInput): JSX.Element => {
     <View style={styles.inputContainer}>
       <TextInput
         style={[styles.input, addBorderError()]}
-        placeholderTextColor='white'
+        placeholderTextColor={hasErrors() ? "#ff4f4f" : "white"}
         placeholder={props.placeholder}
         onChangeText={props.handleChange(props.name)}
         onBlur={props.handleBlur(props.name)}
         value={value}
         secureTextEntry={value.length > 0 ? props.secureTextEntry : false}
       />
-      {hasErrors() && <Text style={styles.errorMessage}>{props.errors[props.name]}</Text>}
+      <ErrorMessage name={props.name}>{(message) => <Text style={styles.errorMessage}>{message}</Text>}</ErrorMessage>
     </View>
   );
 };

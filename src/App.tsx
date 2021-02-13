@@ -1,17 +1,28 @@
-import React  from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import MainNavigator from './navigators/MainTab';
-import AuthenticationNavigator from './navigators/Authentication';
-import {AuthProvider} from './contexts/auth/AuthContext';
+import React, { useEffect } from "react";
+import { AuthProvider } from "./contexts/auth/AuthContext";
+import FlashMessage from "react-native-flash-message";
+import { StatusBar, View } from "react-native";
+import Index from "./navigators/Index";
+import { setStatusBarPadding } from "./helpers/normalizers";
+import { ProfileProvider } from "./contexts/home/ProfileContext";
 
 const App = (): JSX.Element => {
+  useEffect(() => {
+    StatusBar.setTranslucent(true);
+    StatusBar.setBackgroundColor("transparent");
+  }, []);
   return (
-    <AuthProvider>
-      <NavigationContainer>
-         {/*<AuthenticationNavigator />*/}
-        <MainNavigator />
-      </NavigationContainer>
-    </AuthProvider>
+    <View style={{ flex: 1 }}>
+      <AuthProvider>
+        <ProfileProvider>
+          <Index />
+        </ProfileProvider>
+      </AuthProvider>
+      <FlashMessage position="top" style={{
+        // @ts-ignore
+        paddingTop: setStatusBarPadding()
+      }} />
+    </View>
   );
 };
 

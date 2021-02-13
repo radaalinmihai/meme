@@ -1,34 +1,19 @@
-import React, { createContext, useReducer } from "react";
-import { GET_USER } from "./AuthActions";
-import { IAction } from "../../helpers/interfaces";
-
-interface IAuth {
-  email: string;
-  password: string;
-  results: Array<any>;
-}
+import React, { createContext } from "react";
+import { IAuth } from "../../helpers/interfaces";
+import {usePersistStorage} from "react-native-use-persist-storage";
 
 const initialState: IAuth = {
-  email: "",
-  password: "",
-  results: []
+  access_token: "",
+  refresh_token: ""
 };
 
 const authStore: React.Context<any> = createContext(initialState);
 
-const reducer = (state: IAuth, action: IAction): IAuth => {
-  switch (action.type) {
-    case GET_USER:
-      return { ...state, results: action.payload };
-    default:
-      return state;
-  }
-};
-
 const { Provider } = authStore;
+const persistKey: string = '@user';
 
 const AuthProvider: React.FC = ({ children }): JSX.Element => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = usePersistStorage<IAuth>(persistKey, initialState);
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };

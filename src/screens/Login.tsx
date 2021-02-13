@@ -1,4 +1,4 @@
-import { Formik, FormikHelpers, FormikProps, FormikValues } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import InputText from "../components/form/InputText";
@@ -11,11 +11,12 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { IAuthCred } from "../helpers/interfaces";
 
 const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
-  const { state, login } = useAuth();
+  const { login } = useAuth();
 
-  console.log(state);
-
-  const submitLogin = (values: IAuthCred, actions: FormikHelpers<IAuthCred>) => {
+  const submitLogin = async (
+    values: IAuthCred,
+    actions: FormikHelpers<IAuthCred>,
+  ) => {
     login(values);
     actions.setSubmitting(false);
   };
@@ -53,7 +54,7 @@ const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
             <View style={authStyles.ctaWrapper}>
               <SubmitButton
                 onPress={props.handleSubmit}
-                disabled={!props.isValid || props.isSubmitting}>
+                disabled={props.isSubmitting}>
                 Sign in
               </SubmitButton>
               <Text onPress={redirectToRegister} style={authStyles.subtext}>

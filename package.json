@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/native": "^5.8.10",
@@ -20,10 +21,14 @@
     "formik": "^2.2.5",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-dotenv": "^2.4.3",
+    "react-native-flash-message": "^0.1.18",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.15.0",
+    "react-native-sensitive-info": "^5.5.8",
+    "react-native-use-persist-storage": "^1.0.1",
     "react-native-vector-icons": "^7.1.0",
     "yup": "^0.30.0"
   },

@@ -7,9 +7,11 @@ import Logo from "../components/Logo";
 import InputText from "../components/form/InputText";
 import SubmitButton from "../components/form/SubmitButton";
 import { StackScreenProps } from "@react-navigation/stack";
+import useAuth from "../hooks/useAuth";
 
 const RegisterScreen = ({ navigation }: StackScreenProps<any>) => {
   const navigateToLogin = (): void => navigation.goBack();
+  const {register} = useAuth();
   return (
     <ScrollView
       contentContainerStyle={authStyles.container}
@@ -17,15 +19,17 @@ const RegisterScreen = ({ navigation }: StackScreenProps<any>) => {
       <Logo />
       <Text style={authStyles.subtitle}>- Sign up -</Text>
       <Formik
-        onSubmit={(values) => {
-          console.log(values);
+        enableReinitialize
+        onSubmit={(values, {resetForm, setSubmitting}) => {
+          register(values);
+          setSubmitting(false);
         }}
         validationSchema={RegisterValidator}
         initialValues={{
           username: "",
           email: "",
           password: "",
-          retypePassword: ""
+          c_password: ""
         }}>
         {(props) => (
           <View style={authStyles.formWrapper}>
@@ -39,14 +43,14 @@ const RegisterScreen = ({ navigation }: StackScreenProps<any>) => {
             />
             <InputText
               {...props}
-              name="retypePassword"
-              placeholder="Retype your password"
+              name="c_password"
+              placeholder="Retype password"
               secureTextEntry
             />
             <View style={authStyles.ctaWrapper}>
               <SubmitButton
                 onPress={props.handleSubmit}
-                disabled={!props.isValid || props.isSubmitting}>
+                disabled={props.isSubmitting}>
                 Sign up
               </SubmitButton>
               <Text onPress={navigateToLogin} style={authStyles.subtext}>
