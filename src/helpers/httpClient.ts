@@ -21,8 +21,10 @@ httpClient.interceptors.response.use(response => response, async (err: AxiosErro
   if(err.response?.status === StatusCodes.ForbiddenAccess && err.response.data.message === ResponseCodes.REFRESH_TOKEN_EXPIRED) {
     const user = JSON.parse(<string>await AsyncStorage.getItem('@user'));
     httpClient.defaults.headers['Authorization'] = `Bearer ${user.refresh_token}`;
-    httpClient.get('/auth/refreshToken').then((res) => {
-      console.log(res.data);
+    httpClient.get('/auth/refreshToken').then(async (res) => {
+      await AsyncStorage.removeItem('@user');
+      await AsyncStorage.setItem('@user', {...res.data});
+      httpClient.defaults.headers['Authorization'] = `Bearer ${res.data.access_token}`;
       return httpClient(originalRequest);
     });
   }
