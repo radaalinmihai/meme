@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import { IAction } from "../../helpers/interfaces";
+import Actions from "../../helpers/actions";
 
 const initialState = {
   loading: false,
@@ -12,6 +13,22 @@ const { Provider } = profileStore;
 
 const reducer = (state = initialState, action: IAction) => {
   switch (action.type) {
+    case Actions.FETCH_PROFILE:
+      return {
+        ...state,
+        loading: true,
+      };
+    case Actions.FETCH_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        profile: action.payload.profile,
+      };
+    case Actions.FETCH_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

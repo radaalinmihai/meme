@@ -1,14 +1,26 @@
-import React, { useEffect } from "react";
-import { Text } from "react-native";
+import React, { useEffect, useState } from "react";
 import useProfile from "../../hooks/useProfile";
+import {Wrapper, Avatar} from "../../components/styles";
 
 const ProfileScreen: React.FC = (): JSX.Element => {
-  const {getProfile} = useProfile();
+  const {getProfile, profile, loading} = useProfile();
+  const [profilePicture, setProfilePicture] = useState(require('../../assets/avataaars.png'));
+
   useEffect(() => {
     getProfile();
   }, []);
+
+  useEffect(() => {
+    console.log({profile, loading});
+    if(Object.keys(profile).length > 0 && profile.avatar !== '') {
+      setProfilePicture({ uri: profile.avatar });
+    }
+  }, [profile]);
+
   return (
-    <Text>Hello</Text>
+    <Wrapper>
+      <Avatar source={profilePicture} />
+    </Wrapper>
   );
 }
 

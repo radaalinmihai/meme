@@ -4,14 +4,14 @@ import { IAuth, IAuthCred, IErrorAuth, IRegister, IRegisterRes } from "../helper
 import { AxiosResponse } from "axios";
 import httpClient from "../helpers/httpClient";
 import { showMessage } from "react-native-flash-message";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ResponseCodes } from "../helpers/enums";
 
 export default function useAuth() {
   const { state: { access_token }, dispatch } = useContext(authStore);
 
   const setTokens = (res: AxiosResponse<IRegisterRes>): void => {
     const { code, access_token, refresh_token } = res.data;
-    if (code === "OK") {
+    if (code === ResponseCodes.OK) {
       dispatch((state: IAuth) => ({
         ...state,
         access_token, refresh_token,
