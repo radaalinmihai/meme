@@ -2,16 +2,16 @@ import { useContext } from "react";
 import { authStore } from "../contexts/auth/AuthContext";
 import { IAuth, IAuthCred, IErrorAuth, IRegister, IRegisterRes } from "../helpers/interfaces";
 import { AxiosResponse } from "axios";
-import httpClient from "../helpers/httpClient";
+import axios from 'axios';
 import { showMessage } from "react-native-flash-message";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ResponseCodes } from "../helpers/enums";
 
 export default function useAuth() {
-  const { state: { access_token }, dispatch } = useContext(authStore);
+  const { state: { access_token, refresh_token }, dispatch } = useContext(authStore);
 
   const setTokens = (res: AxiosResponse<IRegisterRes>): void => {
     const { code, access_token, refresh_token } = res.data;
-    if (code === "OK") {
+    if (code === ResponseCodes.OK) {
       dispatch((state: IAuth) => ({
         ...state,
         access_token, refresh_token,
@@ -25,6 +25,13 @@ export default function useAuth() {
     }
   };
 
+  const setAuthCredentials = (data: IAuth) => {
+    dispatch((state: IAuth) => ({
+      ...state,
+      ...data
+    }));
+  }
+
   const errorOut = (err: IErrorAuth) => {
     showMessage({
       message: "Error",
@@ -35,11 +42,11 @@ export default function useAuth() {
   };
 
   const login = (data: IAuthCred): void => {
-    httpClient.post("/auth/login", data).then(setTokens).catch(errorOut);
+    axios.post("/auth/login", data).then(setTokens).catch(errorOut);
   };
 
   const register = (data: IRegister): void => {
-    httpClient.post("/auth/register", data).then(setTokens).catch(errorOut);
+    axios.post("/auth/register", data).then(setTokens).catch(errorOut);
   };
 
   const logout = async () => {
@@ -49,5 +56,5 @@ export default function useAuth() {
     }));
   };
 
-  return { access_token, login, register, logout };
+  return { access_token, refresh_token, login, register, setAuthCredentials, logout };
 }
