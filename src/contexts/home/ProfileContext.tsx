@@ -1,8 +1,8 @@
 import React, { createContext, useReducer } from "react";
-import { IAction } from "../../helpers/interfaces";
+import { IAction, IProfile } from "../../helpers/interfaces";
 import Actions from "../../helpers/actions";
 
-const initialState = {
+const initialState: IProfile = {
   loading: false,
   profile: {},
 }
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action: IAction) => {
       return {
         ...state,
         loading: false,
-        profile: action.payload.profile,
+        profile: action.payload,
       };
     case Actions.FETCH_PROFILE_FAIL:
       return {

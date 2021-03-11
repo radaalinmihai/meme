@@ -42,3 +42,20 @@ export interface IErrorAuth extends AxiosError {
     error: string
   }
 }
+
+export interface IBaseContext {
+  loading: boolean;
+}
+
+export interface IProfile extends IBaseContext {
+  Id: string;
+  avatar: string;
+  created_at: Date;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profileId: number;
+  updated_at: Date | null;
+  userId: string;
+  username: string;
+}
