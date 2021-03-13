@@ -43,11 +43,17 @@ export interface IErrorAuth extends AxiosError {
   }
 }
 
-export interface IBaseContext {
+type Base = 'profile';
+
+export type PartialBaseContext<U> = {[key in Base]: Partial<U>} & {
   loading: boolean;
 }
 
-export interface IProfile extends IBaseContext {
+export type BaseContext<U> = {[key in Base]: U} & {
+  loading: boolean;
+}
+
+export interface IProfile {
   Id: string;
   avatar: string;
   created_at: Date;
@@ -59,3 +65,7 @@ export interface IProfile extends IBaseContext {
   userId: string;
   username: string;
 }
+
+export type PartialProfile = PartialBaseContext<IProfile>;
+export type Profile = BaseContext<IProfile>;
+export type ProfileReq = {profile: IProfile};

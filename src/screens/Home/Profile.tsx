@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useProfile from "../../hooks/useProfile";
 import {ProfileHeader, Avatar, TextWrapper, Section} from "../../components/styles";
+import EditOrShow from "../../components/EditOrShow";
 
 const ProfileScreen: React.FC = (): JSX.Element => {
-  const {getProfile, profile, loading} = useProfile();
+  const {getProfile, profile} = useProfile();
   const [profilePicture, setProfilePicture] = useState(require('../../assets/avataaars.png'));
 
   useEffect(() => {
@@ -14,15 +15,20 @@ const ProfileScreen: React.FC = (): JSX.Element => {
     if(Object.keys(profile).length > 0 && profile.avatar !== '') {
       setProfilePicture({ uri: profile.avatar });
     }
-    console.log(profile);
   }, [profile]);
 
   return (
     <ProfileHeader>
-      <Avatar source={profilePicture} />
       <Section>
+        <Avatar source={profilePicture} />
         <TextWrapper fontSize={30}>@{profile.username}</TextWrapper>
-        <TextWrapper fontSize={16}>{profile.firstName} {profile.lastName}</TextWrapper>
+      </Section>
+      <Section spaceBetween marginTop='10%' width='100%'>
+        <EditOrShow placeholder='No first name' />
+        <EditOrShow placeholder='No last name' />
+      </Section>
+      <Section spaceBetween marginTop='5%' width='100%'>
+        <EditOrShow placeholder='Your email' />
       </Section>
     </ProfileHeader>
   );

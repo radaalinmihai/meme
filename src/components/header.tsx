@@ -7,8 +7,8 @@ export default function Header({navigation}: StackHeaderProps): JSX.Element {
   const goToProfile = () => navigation.push('Profile');
   return (
     <View style={styles.container}>
-        <MaterialIcon name='add' color='white' size={40} />
-        <MaterialIcon onPress={goToProfile} name='account-circle' color='white' size={40} />
+      {navigation.canGoBack() ? <MaterialIcon onPress={() => navigation.goBack()} name='arrow-back-ios' color='white' size={40} /> :<MaterialIcon name="add" color="white" size={40} />}
+      {!navigation.canGoBack() && <MaterialIcon onPress={goToProfile} name="account-circle" color="white" size={40} />}
     </View>
   );
 }

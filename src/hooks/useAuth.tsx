@@ -3,8 +3,9 @@ import { authStore } from "../contexts/auth/AuthContext";
 import { IAuth, IAuthCred, IErrorAuth, IRegister, IRegisterRes } from "../helpers/interfaces";
 import { AxiosResponse } from "axios";
 import axios from 'axios';
-import { showMessage } from "react-native-flash-message";
 import { ResponseCodes } from "../helpers/enums";
+import showError from "../helpers/showError";
+import showSuccess from "../helpers/showSuccess";
 
 export default function useAuth() {
   const { state: { access_token, refresh_token }, dispatch } = useContext(authStore);
@@ -16,12 +17,7 @@ export default function useAuth() {
         ...state,
         access_token, refresh_token,
       }));
-      showMessage({
-        message: "Success",
-        description: "Successfully logged in! Redirecting..",
-        type: "success",
-        duration: 3000,
-      });
+      showSuccess("Successfully logged in! Redirecting..");
     }
   };
 
@@ -33,12 +29,8 @@ export default function useAuth() {
   }
 
   const errorOut = (err: IErrorAuth) => {
-    showMessage({
-      message: "Error",
-      description: err.response?.data.message,
-      type: "danger",
-      duration: 3000,
-    });
+    console.log(err);
+    showError(err.response?.data.message);
   };
 
   const login = (data: IAuthCred): void => {

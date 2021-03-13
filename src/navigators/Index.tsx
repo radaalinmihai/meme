@@ -14,10 +14,8 @@ axios.defaults.baseURL = API_URL;
 const Index: React.FC = (): JSX.Element => {
   const { access_token, refresh_token, logout, setAuthCredentials } = useAuth();
   useEffect(() => {
-    axios.interceptors.response.use(response => response, async error => {
-      // console.error(error.response);
-      const originalReq = error.config;
-      console.log(error.response.code);
+    axios.interceptors.response.use(response => response, async (error: AxiosError) => {
+      // const originalReq = error.config;
       if(error.response?.status === StatusCodes.ForbiddenAccess) {
         axios.defaults.headers['Authorization'] = `Bearer ${refresh_token}`;
         await logout();

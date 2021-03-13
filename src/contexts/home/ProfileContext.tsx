@@ -1,11 +1,11 @@
 import React, { createContext, useReducer } from "react";
-import { IAction, IProfile } from "../../helpers/interfaces";
+import { IAction, IProfile, PartialProfile } from "../../helpers/interfaces";
 import Actions from "../../helpers/actions";
 
-const initialState: IProfile = {
+const initialState: PartialProfile = {
   loading: false,
-  profile: {},
-}
+  profile: {} as IProfile,
+};
 
 const profileStore: React.Context<any> = createContext(initialState);
 
