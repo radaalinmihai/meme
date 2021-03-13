@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import Actions from "../helpers/actions";
 import axios from "axios";
 import showError from "../helpers/showError";
-import { Profile, ProfileReq } from "../helpers/interfaces";
+import { Profile, ProfileReq, ProfileTable } from "../helpers/interfaces";
 
 const useProfile = () => {
   const {state, dispatch} = useContext(profileStore);
@@ -25,7 +25,15 @@ const useProfile = () => {
     });
   }
 
-  return { loading, profile, getProfile };
+  const updateProfile = (body: ProfileTable): void => {
+    axios.put(`/profile/${profile.profileId}`, JSON.stringify(body)).then((res) => {
+      console.log(res.data);
+    }).catch(err => {
+      console.error(err.response);
+    });
+  }
+
+  return { loading, profile, getProfile, updateProfile };
 }
 
 export default useProfile;

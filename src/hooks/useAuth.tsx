@@ -9,6 +9,7 @@ import showSuccess from "../helpers/showSuccess";
 
 export default function useAuth() {
   const { state: { access_token, refresh_token }, dispatch } = useContext(authStore);
+  console.log(access_token);
 
   const setTokens = (res: AxiosResponse<IRegisterRes>): void => {
     const { code, access_token, refresh_token } = res.data;

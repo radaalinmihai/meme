@@ -66,6 +66,12 @@ export interface IProfile {
   username: string;
 }
 
+export type UpdateProfileLiterals = 'firstName' | 'avatar' | 'lastName';
+
+export type ProfileTable = Partial<Pick<IProfile, UpdateProfileLiterals>>;
+
 export type PartialProfile = PartialBaseContext<IProfile>;
+
 export type Profile = BaseContext<IProfile>;
+
 export type ProfileReq = {profile: IProfile};

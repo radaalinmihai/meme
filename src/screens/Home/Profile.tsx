@@ -13,6 +13,7 @@ const ProfileScreen: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if(Object.keys(profile).length > 0 && profile.avatar !== '') {
+      console.log(profile);
       setProfilePicture({ uri: profile.avatar });
     }
   }, [profile]);
@@ -24,11 +25,11 @@ const ProfileScreen: React.FC = (): JSX.Element => {
         <TextWrapper fontSize={30}>@{profile.username}</TextWrapper>
       </Section>
       <Section spaceBetween marginTop='10%' width='100%'>
-        <EditOrShow placeholder='No first name' />
-        <EditOrShow placeholder='No last name' />
+        <EditOrShow type='firstName' placeholder='No first name' />
+        <EditOrShow type='lastName' placeholder='No last name' />
       </Section>
       <Section spaceBetween marginTop='5%' width='100%'>
-        <EditOrShow placeholder='Your email' />
+        <EditOrShow type='' placeholder='Your email' />
       </Section>
     </ProfileHeader>
   );
