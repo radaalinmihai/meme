@@ -7,9 +7,10 @@ import { UpdateProfileLiterals } from "../helpers/interfaces";
 interface IProps {
   placeholder: string;
   type: UpdateProfileLiterals;
+  disabled: boolean;
 }
 
-const EditOrShow = ({ placeholder, type }: IProps) => {
+const EditOrShow = ({ placeholder, type, disabled }: IProps) => {
   const [editable, setEditable] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
   const {updateProfile, profile} = useProfile();
@@ -43,8 +44,8 @@ const EditOrShow = ({ placeholder, type }: IProps) => {
       placeholder={placeholder}
       value={value}
     />
-    <TouchableNativeFeedback onPress={toggleEdit}>
-      <Icon name='edit' />
+    <TouchableNativeFeedback disabled={disabled} onPress={toggleEdit}>
+      <Icon name='edit' disabled={disabled} />
     </TouchableNativeFeedback>
   </EditWrapper>;
 };

@@ -29,7 +29,7 @@ const ProfileScreen: React.FC = (): JSX.Element => {
         <EditOrShow type='lastName' placeholder='No last name' />
       </Section>
       <Section spaceBetween marginTop='5%' width='100%'>
-        <EditOrShow type='' placeholder='Your email' />
+        <EditOrShow disabled type='email' placeholder='Your email' />
       </Section>
     </ProfileHeader>
   );

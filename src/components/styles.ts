@@ -15,6 +15,10 @@ interface IEditInput {
   width?: string;
 }
 
+interface IMaterialIcon {
+  disabled: boolean;
+}
+
 export const ProfileHeader = styled.View`
   padding: 10px;
 `;
@@ -62,8 +66,26 @@ export const EditInput = styled.TextInput<IEditInput>`
   width: 100%;
 `;
 
-export const Icon = styled(MaterialIcon)`
+export const Icon = styled(MaterialIcon)<IMaterialIcon>`
   color: white;
   font-size: 16px;
   margin: 7% 0 0 -15%;
+  ${({disabled}) => disabled && `
+    opacity: 0.5;
+  `}
+`;
+
+export const CardImage = styled.Image`
+  width: 80%;
+  height: 90%;
+  resizeMode: cover;
+  position: absolute;
+  left: 10%;
+  top: 0;
+  border-radius: 30px;
+`;
+
+export const HomeWrapper = styled.View`
+  position: relative;
+  flex: 1;
 `;

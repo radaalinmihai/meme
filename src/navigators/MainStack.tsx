@@ -1,30 +1,42 @@
-import React from 'react';
-import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
-import Header from '../components/header';
-import HomeScreen from '../screens/Home/Home';
-import {SCREEN_BACKGROUND} from '../styles/colors';
-import ProfileScreen from "../screens/Home/Profile";
+import React from "react";
+import HomeScreen from "../screens/Home/Home";
+import { DELIMITATOR_COLOR, SCREEN_BACKGROUND } from "../styles/colors";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { setStatusBarPadding } from "../helpers/normalizers";
+import NotificationScreen from "../screens/Notifications";
+import OtherScreen from "../screens/Others";
+import TabBarButton from "../components/navigation/TabBarButton";
+import TabBarIcon from "../components/navigation/TabBarIcon";
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const MainStack: React.FC = (): JSX.Element => {
+const MainTabs: React.FC = (): JSX.Element => {
   return (
-    <Stack.Navigator
-      initialRouteName="Home"
-      headerMode="screen"
-      screenOptions={{
-        gestureEnabled: false,
-        gestureDirection: 'horizontal',
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        header: Header,
-        cardStyle: {
-          backgroundColor: SCREEN_BACKGROUND
-        }
-      }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name='Profile' component={ProfileScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator screenOptions={({ route }) => ({
+      tabBarButton: TabBarButton,
+      tabBarIcon: TabBarIcon(route)
+    })}
+   tabBarOptions={{
+     tabStyle: {
+       backgroundColor: DELIMITATOR_COLOR
+     },
+     showLabel: false,
+     style: {
+       height: 58,
+       borderTopWidth: 0,
+       elevation: 0
+     }
+   }}
+   sceneContainerStyle={{
+     paddingTop: setStatusBarPadding(),
+     backgroundColor: SCREEN_BACKGROUND
+   }}
+   initialRouteName="Home">
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Notifications" component={NotificationScreen} />
+      <Tab.Screen name="Others" component={OtherScreen} />
+    </Tab.Navigator>
   );
-}
+};
 
-export default MainStack;
+export default MainTabs;

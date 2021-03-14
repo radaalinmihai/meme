@@ -1,68 +1,29 @@
 import React  from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainStack from "./MainStack";
-import { DELIMITATOR_COLOR, SCREEN_BACKGROUND } from "../styles/colors";
-import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import NotificationScreen from "../screens/Notifications";
-import OtherScreen from "../screens/Others";
-import { TouchableNativeFeedback, View } from "react-native";
+import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
+import Header from "../components/header";
+import ProfileScreen from "../screens/Home/Profile";
+import { SCREEN_BACKGROUND } from "../styles/colors";
 import { setStatusBarPadding } from "../helpers/normalizers";
+import MainTabs from "./MainStack";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 // Export each of the components bellow to its own function
 const MainNavigator: React.FC = (): JSX.Element => {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarButton: ({ children, onPress }): JSX.Element => {
-          return (
-            <TouchableNativeFeedback onPress={onPress}>
-              <View style={{
-                flex: 1,
-                backgroundColor: DELIMITATOR_COLOR
-              }}>{children}</View>
-            </TouchableNativeFeedback>
-          );
-        },
-        tabBarIcon: ({ focused }) => {
-          let iconName: string;
-
-          switch (route.name) {
-            case "MainStack":
-              iconName = "home";
-              break;
-            case "Notifications":
-              iconName = "notifications";
-              break;
-            case "Others":
-              iconName = "more-horiz";
-              break;
-          }
-
-          // @ts-ignore
-          return <MaterialIcon name={iconName} size={38} color={focused ? "#696969" : "white"} />;
+    <Stack.Navigator headerMode="screen"
+      screenOptions={{
+        gestureEnabled: false,
+          gestureDirection: 'horizontal',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          header: Header,
+          cardStyle: {
+          backgroundColor: SCREEN_BACKGROUND,
+          paddingTop: setStatusBarPadding()
         }
-      })}
-      tabBarOptions={{
-        tabStyle: {
-          backgroundColor: DELIMITATOR_COLOR
-        },
-        showLabel: false,
-        style: {
-          height: 58,
-          borderTopWidth: 0,
-          elevation: 0
-        }
-      }}
-      sceneContainerStyle={{
-        paddingTop: setStatusBarPadding(),
-        backgroundColor: SCREEN_BACKGROUND
-      }}
-    >
-      <Tab.Screen name="MainStack" component={MainStack} />
-      <Tab.Screen name="Notifications" component={NotificationScreen} />
-      <Tab.Screen name="Others" component={OtherScreen} />
-    </Tab.Navigator>
+      }}>
+      <Stack.Screen name="Main" component={MainTabs} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+    </Stack.Navigator>
   );
 };
 

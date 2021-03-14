@@ -66,7 +66,8 @@ export interface IProfile {
   username: string;
 }
 
-export type UpdateProfileLiterals = 'firstName' | 'avatar' | 'lastName';
+
+export type UpdateProfileLiterals = 'firstName' | 'avatar' | 'lastName' | 'email';
 
 export type ProfileTable = Partial<Pick<IProfile, UpdateProfileLiterals>>;
 
@@ -75,3 +76,11 @@ export type PartialProfile = PartialBaseContext<IProfile>;
 export type Profile = BaseContext<IProfile>;
 
 export type ProfileReq = {profile: IProfile};
+
+export interface ITabBarIconProps {
+  focused: boolean;
+}
+
+export interface ICardProps {
+  src: string;
+}

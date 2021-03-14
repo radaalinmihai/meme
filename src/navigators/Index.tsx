@@ -16,7 +16,7 @@ const Index: React.FC = (): JSX.Element => {
   useEffect(() => {
     axios.interceptors.response.use(response => response, async (error: AxiosError) => {
       // const originalReq = error.config;
-      if(error.response?.status === StatusCodes.ForbiddenAccess) {
+      if(error.response?.status === StatusCodes.ForbiddenAccess && error.response.data.code === ResponseCodes.SESSION_EXPIRED) {
         axios.defaults.headers['Authorization'] = `Bearer ${refresh_token}`;
         await logout();
         // axios.get('/auth/refreshToken').then((res: AxiosResponse<IAuth>) => {
