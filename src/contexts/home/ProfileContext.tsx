@@ -34,9 +34,9 @@ const reducer = (state = initialState, action: IAction) => {
   }
 };
 
-const ProfileProvider: React.FC = ({children}): JSX.Element => {
+const ProfileProvider: React.FC = ({ children }): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  return <Provider value={{state, dispatch}}>{children}</Provider>;
+  return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 
-export {ProfileProvider, profileStore};
+export { ProfileProvider, profileStore };

@@ -1,6 +1,6 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {WHITE} from '../styles/colors';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { WHITE } from "../styles/colors";
 
 const Logo = () => {
   return (
@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 52,
     color: WHITE,
-    fontFamily: 'Montserrat',
+    fontFamily: "Montserrat",
   },
   logoContainer: {
-      justifyContent: 'center',
-      alignItems: 'center'
-  }
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default Logo;

@@ -4,31 +4,31 @@ import { WHITE } from "./colors";
 const authStyles = StyleSheet.create({
   container: {
     flex: 1,
-    alignSelf: 'center',
+    alignSelf: "center",
     width: "90%",
-    height: '100%',
-    justifyContent: 'center'
+    height: "100%",
+    justifyContent: "center",
   },
   formWrapper: {
-    marginTop: "20%"
+    marginTop: "20%",
   },
   text: {
-    color: WHITE
+    color: WHITE,
   },
   subtext: {
     color: WHITE,
     alignSelf: "center",
-    marginTop: 19
+    marginTop: 19,
   },
   ctaWrapper: {
     flexDirection: "column",
-    marginTop: 46
+    marginTop: 46,
   },
   subtitle: {
-    color: 'white',
+    color: "white",
     fontSize: 23,
-    alignSelf: 'center'
-  }
+    alignSelf: "center",
+  },
 });
 
 export default authStyles;

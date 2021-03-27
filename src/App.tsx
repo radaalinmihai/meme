@@ -5,6 +5,7 @@ import { StatusBar, View } from "react-native";
 import Index from "./navigators/Index";
 import { setStatusBarPadding } from "./helpers/normalizers";
 import { ProfileProvider } from "./contexts/home/ProfileContext";
+import ConfigurationProvider from "./contexts/AppConfiguration";
 
 const App = (): JSX.Element => {
   useEffect(() => {
@@ -13,15 +14,20 @@ const App = (): JSX.Element => {
   }, []);
   return (
     <View style={{ flex: 1 }}>
-      <AuthProvider>
-        <ProfileProvider>
-          <Index />
-        </ProfileProvider>
-      </AuthProvider>
-      <FlashMessage position="top" style={{
-        // @ts-ignore
-        paddingTop: setStatusBarPadding()
-      }} />
+      <ConfigurationProvider>
+        <AuthProvider>
+          <ProfileProvider>
+            <Index />
+          </ProfileProvider>
+        </AuthProvider>
+      </ConfigurationProvider>
+      <FlashMessage
+        position="top"
+        style={{
+          // @ts-ignore
+          paddingTop: setStatusBarPadding(),
+        }}
+      />
     </View>
   );
 };

@@ -1,16 +1,16 @@
 import React, { createContext } from "react";
 import { IAuth } from "../../helpers/interfaces";
-import {usePersistStorage} from "react-native-use-persist-storage";
+import { usePersistStorage } from "react-native-use-persist-storage";
 
 const initialState: IAuth = {
   access_token: "",
-  refresh_token: ""
+  refresh_token: "",
 };
 
 const authStore: React.Context<any> = createContext(initialState);
 
 const { Provider } = authStore;
-const persistKey: string = '@user';
+const persistKey = "@user";
 
 const AuthProvider: React.FC = ({ children }): JSX.Element => {
   const [state, dispatch] = usePersistStorage<IAuth>(persistKey, initialState);

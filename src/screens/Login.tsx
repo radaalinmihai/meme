@@ -13,10 +13,7 @@ import { IAuthCred } from "../helpers/interfaces";
 const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
   const { login } = useAuth();
 
-  const submitLogin = async (
-    values: IAuthCred,
-    actions: FormikHelpers<IAuthCred>,
-  ) => {
+  const submitLogin = async (values: IAuthCred, actions: FormikHelpers<IAuthCred>) => {
     login(values);
     actions.setSubmitting(false);
   };
@@ -26,9 +23,7 @@ const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={authStyles.container}
-      keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={authStyles.container} keyboardShouldPersistTaps="handled">
       <Logo />
       <Text style={authStyles.subtitle}>- Sign in -</Text>
       <Formik
@@ -36,25 +31,14 @@ const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
         validationSchema={LoginValidator}
         initialValues={{
           username: "",
-          password: ""
+          password: "",
         }}>
         {(props) => (
           <View style={authStyles.formWrapper}>
-            <InputText
-              {...props}
-              name="username"
-              placeholder="Username"
-            />
-            <InputText
-              {...props}
-              name="password"
-              placeholder="Password"
-              secureTextEntry
-            />
+            <InputText {...props} name="username" placeholder="Username" />
+            <InputText {...props} name="password" placeholder="Password" secureTextEntry />
             <View style={authStyles.ctaWrapper}>
-              <SubmitButton
-                onPress={props.handleSubmit}
-                disabled={props.isSubmitting}>
+              <SubmitButton onPress={props.handleSubmit} disabled={props.isSubmitting}>
                 Sign in
               </SubmitButton>
               <Text onPress={redirectToRegister} style={authStyles.subtext}>

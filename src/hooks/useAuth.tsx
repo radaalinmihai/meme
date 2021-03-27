@@ -2,20 +2,24 @@ import { useContext } from "react";
 import { authStore } from "../contexts/auth/AuthContext";
 import { IAuth, IAuthCred, IErrorAuth, IRegister, IRegisterRes } from "../helpers/interfaces";
 import { AxiosResponse } from "axios";
-import axios from 'axios';
+import axios from "axios";
 import { ResponseCodes } from "../helpers/enums";
 import showError from "../helpers/showError";
 import showSuccess from "../helpers/showSuccess";
 
 export default function useAuth() {
-  const { state: { access_token, refresh_token }, dispatch } = useContext(authStore);
+  const {
+    state: { access_token, refresh_token },
+    dispatch,
+  } = useContext(authStore);
 
   const setTokens = (res: AxiosResponse<IRegisterRes>): void => {
     const { code, access_token, refresh_token } = res.data;
     if (code === ResponseCodes.OK) {
       dispatch((state: IAuth) => ({
         ...state,
-        access_token, refresh_token,
+        access_token,
+        refresh_token,
       }));
       showSuccess("Successfully logged in! Redirecting..");
     }
@@ -24,9 +28,9 @@ export default function useAuth() {
   const setAuthCredentials = (data: IAuth) => {
     dispatch((state: IAuth) => ({
       ...state,
-      ...data
+      ...data,
     }));
-  }
+  };
 
   const errorOut = (err: IErrorAuth) => {
     console.log(err);
@@ -43,8 +47,8 @@ export default function useAuth() {
 
   const logout = async () => {
     dispatch(() => ({
-      access_token: '',
-      refresh_token: '',
+      access_token: "",
+      refresh_token: "",
     }));
   };
 

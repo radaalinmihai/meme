@@ -5,11 +5,11 @@ export interface IAuth {
   code?: string;
   access_token: string;
   refresh_token: string;
-};
+}
 
-export interface IAction {
+export interface IAction<T> {
   type: string;
-  payload: any;
+  payload: T;
 }
 
 export interface IAuthCred {
@@ -22,7 +22,8 @@ export interface IRegister extends IAuthCred {
   c_password: string;
 }
 
-export interface ITextInput extends Pick<FormikHandlers, 'handleChange' | 'handleBlur' | 'getFieldMeta'> {
+export interface ITextInput
+  extends Pick<FormikHandlers, "handleChange" | "handleBlur" | "getFieldMeta"> {
   name: string;
   placeholder: string;
   secureTextEntry?: boolean;
@@ -39,19 +40,19 @@ export interface IRegisterRes {
 
 export interface IErrorAuth extends AxiosError {
   data: {
-    error: string
-  }
+    error: string;
+  };
 }
 
-type Base = 'profile';
+type Base = "profile";
 
-export type PartialBaseContext<U> = {[key in Base]: Partial<U>} & {
+export type PartialBaseContext<U> = { [key in Base]: Partial<U> } & {
   loading: boolean;
-}
+};
 
-export type BaseContext<U> = {[key in Base]: U} & {
+export type BaseContext<U> = { [key in Base]: U } & {
   loading: boolean;
-}
+};
 
 export interface IProfile {
   Id: string;
@@ -66,8 +67,7 @@ export interface IProfile {
   username: string;
 }
 
-
-export type UpdateProfileLiterals = 'firstName' | 'avatar' | 'lastName' | 'email';
+export type UpdateProfileLiterals = "firstName" | "avatar" | "lastName" | "email";
 
 export type ProfileTable = Partial<Pick<IProfile, UpdateProfileLiterals>>;
 
@@ -75,7 +75,7 @@ export type PartialProfile = PartialBaseContext<IProfile>;
 
 export type Profile = BaseContext<IProfile>;
 
-export type ProfileReq = {profile: IProfile};
+export type ProfileReq = { profile: IProfile };
 
 export interface ITabBarIconProps {
   focused: boolean;
@@ -83,4 +83,16 @@ export interface ITabBarIconProps {
 
 export interface ICardProps {
   src: string;
+  active: boolean;
+  removeItem: (finished: boolean) => void;
+}
+
+export interface CardCtx {
+  startX: number;
+}
+
+export interface IAppConfiguration {
+  cardRotationValue: number;
+  cardThresholdFraction: number;
+  cardActiveStartRotation: number;
 }

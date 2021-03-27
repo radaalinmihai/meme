@@ -9,7 +9,7 @@ import { IAuth } from "./interfaces";
 const baseURL: string = API_URL;
 
 const httpClient: AxiosInstance = axios.create({
-  baseURL
+  baseURL,
 });
 
 // httpClient.interceptors.request.use(async (res) => {

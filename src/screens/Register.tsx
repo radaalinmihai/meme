@@ -11,16 +11,14 @@ import useAuth from "../hooks/useAuth";
 
 const RegisterScreen = ({ navigation }: StackScreenProps<any>) => {
   const navigateToLogin = (): void => navigation.goBack();
-  const {register} = useAuth();
+  const { register } = useAuth();
   return (
-    <ScrollView
-      contentContainerStyle={authStyles.container}
-      keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={authStyles.container} keyboardShouldPersistTaps="handled">
       <Logo />
       <Text style={authStyles.subtitle}>- Sign up -</Text>
       <Formik
         enableReinitialize
-        onSubmit={(values, {resetForm, setSubmitting}) => {
+        onSubmit={(values, { resetForm, setSubmitting }) => {
           register(values);
           setSubmitting(false);
         }}
@@ -29,28 +27,16 @@ const RegisterScreen = ({ navigation }: StackScreenProps<any>) => {
           username: "",
           email: "",
           password: "",
-          c_password: ""
+          c_password: "",
         }}>
         {(props) => (
           <View style={authStyles.formWrapper}>
             <InputText {...props} name="username" placeholder="Username" />
             <InputText {...props} name="email" placeholder="Email" />
-            <InputText
-              {...props}
-              name="password"
-              placeholder="Password"
-              secureTextEntry
-            />
-            <InputText
-              {...props}
-              name="c_password"
-              placeholder="Retype password"
-              secureTextEntry
-            />
+            <InputText {...props} name="password" placeholder="Password" secureTextEntry />
+            <InputText {...props} name="c_password" placeholder="Retype password" secureTextEntry />
             <View style={authStyles.ctaWrapper}>
-              <SubmitButton
-                onPress={props.handleSubmit}
-                disabled={props.isSubmitting}>
+              <SubmitButton onPress={props.handleSubmit} disabled={props.isSubmitting}>
                 Sign up
               </SubmitButton>
               <Text onPress={navigateToLogin} style={authStyles.subtext}>

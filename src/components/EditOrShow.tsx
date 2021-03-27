@@ -12,42 +12,45 @@ interface IProps {
 
 const EditOrShow = ({ placeholder, type, disabled }: IProps) => {
   const [editable, setEditable] = useState<boolean>(false);
-  const [value, setValue] = useState<string>('');
-  const {updateProfile, profile} = useProfile();
+  const [value, setValue] = useState<string>("");
+  const { updateProfile, profile } = useProfile();
   const editInputRef = useRef() as RefObject<TextInput>;
 
   const toggleEdit = useCallback(() => {
-    setEditable(edit => !edit);
+    setEditable((edit) => !edit);
   }, [editable]);
 
   useEffect(() => {
-    if(Object.keys(profile).length > 0)
-      setValue(profile[type]);
+    if (Object.keys(profile).length > 0) setValue(profile[type]);
   }, [profile]);
 
   useEffect(() => {
-    if(editable) {
+    if (editable) {
       editInputRef.current?.focus();
     }
   }, [editable]);
 
-  return <EditWrapper>
-    <EditInput
-      onBlur={() => updateProfile({
-        [type]: value
-      })}
-      onChangeText={text => setValue(text)}
-      autoFocus={editable}
-      ref={editInputRef}
-      editable={editable}
-      placeholderTextColor="#545454"
-      placeholder={placeholder}
-      value={value}
-    />
-    <TouchableNativeFeedback disabled={disabled} onPress={toggleEdit}>
-      <Icon name='edit' disabled={disabled} />
-    </TouchableNativeFeedback>
-  </EditWrapper>;
+  return (
+    <EditWrapper>
+      <EditInput
+        onBlur={() =>
+          updateProfile({
+            [type]: value,
+          })
+        }
+        onChangeText={(text) => setValue(text)}
+        autoFocus={editable}
+        ref={editInputRef}
+        editable={editable}
+        placeholderTextColor="#545454"
+        placeholder={placeholder}
+        value={value}
+      />
+      <TouchableNativeFeedback disabled={disabled} onPress={toggleEdit}>
+        <Icon name="edit" disabled={disabled} />
+      </TouchableNativeFeedback>
+    </EditWrapper>
+  );
 };
 
 export default EditOrShow;

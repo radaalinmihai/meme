@@ -5,7 +5,7 @@ import { ITextInput } from "../../helpers/interfaces";
 import { ErrorMessage } from "formik";
 
 const InputText = (props: ITextInput): JSX.Element => {
-  const {touched, error} = props.getFieldMeta(props.name);
+  const { touched, error } = props.getFieldMeta(props.name);
   const hasErrors = (): boolean => touched && error !== undefined;
   const addBorderError = () => hasErrors() && styles.errorBorder;
   const value = props.values[props.name];
@@ -21,7 +21,9 @@ const InputText = (props: ITextInput): JSX.Element => {
         value={value}
         secureTextEntry={value.length > 0 ? props.secureTextEntry : false}
       />
-      <ErrorMessage name={props.name}>{(message) => <Text style={styles.errorMessage}>{message}</Text>}</ErrorMessage>
+      <ErrorMessage name={props.name}>
+        {(message) => <Text style={styles.errorMessage}>{message}</Text>}
+      </ErrorMessage>
     </View>
   );
 };
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     paddingHorizontal: 20,
     paddingVertical: 0,
-    marginBottom: 19
+    marginBottom: 19,
   },
   input: {
     borderColor: WHITE,
@@ -38,15 +40,15 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 15,
     color: WHITE,
-    fontFamily: "Roboto"
+    fontFamily: "Roboto",
   },
   errorBorder: {
-    borderColor: ERROR_COLOR
+    borderColor: ERROR_COLOR,
   },
   errorMessage: {
     color: ERROR_COLOR,
-    marginLeft: "4%"
-  }
+    marginLeft: "4%",
+  },
 });
 
 export default InputText;
