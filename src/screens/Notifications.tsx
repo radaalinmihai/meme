@@ -1,6 +1,6 @@
 import React from "react";
-import { Text } from "react-native";
+import {Text} from "react-native";
 
 export default function NotificationScreen() {
-	return <Text>Notifications</Text>;
+  return <Text>Notifications</Text>;
 }

@@ -1,16 +1,16 @@
 // @ts-ignore
-import { API_URL } from "@env";
+import {API_URL} from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import axios, {AxiosError, AxiosInstance, AxiosResponse} from "axios";
 
 import useAuth from "../hooks/useAuth";
-import { ResponseCodes, StatusCodes } from "./enums";
-import { IAuth } from "./interfaces";
+import {ResponseCodes, StatusCodes} from "./enums";
+import {IAuth} from "./interfaces";
 
 const baseURL: string = API_URL;
 
 const httpClient: AxiosInstance = axios.create({
-	baseURL,
+  baseURL,
 });
 
 // httpClient.interceptors.request.use(async (res) => {
