@@ -1,26 +1,28 @@
 import React from "react";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 
-import {ITabBarIconProps} from "../../helpers/interfaces";
+import { ITabBarIconProps } from "../../helpers/interfaces";
 
-const TabBarIcon = (
-  route: Readonly<{key: string; name: string}> & Readonly<{params?: Readonly<object | undefined>}>,
-) => ({focused}: ITabBarIconProps) => {
-  let iconName!: string;
+export default function TabBarIcon(
+	route: Readonly<{ key: string; name: string }> & Readonly<{ params?: Readonly<undefined> }>,
+) {
+	return TabBarIconContent;
 
-  switch (route.name) {
-    case "Home":
-      iconName = "home";
-      break;
-    case "Notifications":
-      iconName = "notifications";
-      break;
-    case "Others":
-      iconName = "more-horiz";
-      break;
-  }
+	function TabBarIconContent({ focused }: ITabBarIconProps) {
+		let iconName!: string;
 
-  return <MaterialIcon name={iconName} size={38} color={focused ? "#696969" : "white"} />;
-};
+		switch (route.name) {
+			case "Home":
+				iconName = "home";
+				break;
+			case "Notifications":
+				iconName = "notifications";
+				break;
+			case "Others":
+				iconName = "more-horiz";
+				break;
+		}
 
-export default TabBarIcon;
+		return <MaterialIcon name={iconName} size={38} color={focused ? "#696969" : "white"} />;
+	}
+}
