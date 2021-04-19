@@ -17,7 +17,7 @@ interface IEditInput {
 }
 
 interface IMaterialIcon {
-	disabled: boolean;
+	disabled?: boolean;
 }
 
 export const ProfileHeader = styled.View`
@@ -57,7 +57,7 @@ export const TextWrapper = styled.Text<ITextWrapper>`
 export const Avatar = styled.Image`
 	width: 120px;
 	height: 120px;
-	resizemode: center;
+	resize-mode: center;
 `;
 
 export const EditWrapper = styled.View`
@@ -85,7 +85,7 @@ export const Icon = styled(MaterialIcon)<IMaterialIcon>`
 export const CardImage = styled.Image`
 	width: 80%;
 	height: 90%;
-	resizemode: cover;
+	resize-mode: cover;
 	position: absolute;
 	left: 10%;
 	top: 0;

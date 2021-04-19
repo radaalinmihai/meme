@@ -1,6 +1,5 @@
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { StatusBar } from "react-native";
 
 import LoginScreen from "../screens/Login";
 import RegisterScreen from "../screens/Register";

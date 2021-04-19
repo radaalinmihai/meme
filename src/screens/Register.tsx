@@ -6,8 +6,8 @@ import { ScrollView, Text, View } from "react-native";
 import InputText from "../components/form/InputText";
 import SubmitButton from "../components/form/SubmitButton";
 import Logo from "../components/Logo";
+import { useAuth } from "../contexts/auth/AuthContext";
 import { RegisterValidator } from "../helpers/validators";
-import useAuth from "../hooks/useAuth";
 import authStyles from "../styles/authStyles";
 
 const RegisterScreen = ({ navigation }: StackScreenProps<any>) => {

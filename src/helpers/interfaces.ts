@@ -84,6 +84,7 @@ export interface ITabBarIconProps {
 export interface ICardProps {
 	src: string;
 	active: boolean;
+	second: boolean;
 	removeItem: (finished: boolean) => void;
 }
 

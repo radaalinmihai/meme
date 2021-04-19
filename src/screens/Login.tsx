@@ -6,9 +6,9 @@ import { ScrollView, Text, View } from "react-native";
 import InputText from "../components/form/InputText";
 import SubmitButton from "../components/form/SubmitButton";
 import Logo from "../components/Logo";
+import { useAuth } from "../contexts/auth/AuthContext";
 import { IAuthCred } from "../helpers/interfaces";
 import { LoginValidator } from "../helpers/validators";
-import useAuth from "../hooks/useAuth";
 import authStyles from "../styles/authStyles";
 
 const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
@@ -28,6 +28,7 @@ const LoginScreen = ({ navigation }: StackScreenProps<any>): JSX.Element => {
 			<Logo />
 			<Text style={authStyles.subtitle}>- Sign in -</Text>
 			<Formik
+				enableReinitialize
 				onSubmit={submitLogin}
 				validationSchema={LoginValidator}
 				initialValues={{

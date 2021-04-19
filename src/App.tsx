@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { StatusBar, View } from "react-native";
+import { StatusBar } from "react-native";
 import FlashMessage from "react-native-flash-message";
+import { Provider } from "react-redux";
 
 import { AuthProvider } from "./contexts/auth/AuthContext";
 import { ProfileProvider } from "./contexts/home/ProfileContext";
 import { setStatusBarPadding } from "./helpers/normalizers";
 import Index from "./navigators/Index";
+import store from "./store";
 
 const App = (): JSX.Element => {
 	useEffect(() => {
@@ -13,19 +15,21 @@ const App = (): JSX.Element => {
 		StatusBar.setBackgroundColor("transparent");
 	}, []);
 	return (
-		<View style={{ flex: 1 }}>
-			<AuthProvider>
-				<ProfileProvider>
-					<Index />
-				</ProfileProvider>
-			</AuthProvider>
+		<>
+			<Provider store={store}>
+				<AuthProvider>
+					<ProfileProvider>
+						<Index />
+					</ProfileProvider>
+				</AuthProvider>
+			</Provider>
 			<FlashMessage
 				position="top"
 				style={{
 					paddingTop: setStatusBarPadding(),
 				}}
 			/>
-		</View>
+		</>
 	);
 };
 

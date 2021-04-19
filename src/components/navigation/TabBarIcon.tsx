@@ -4,7 +4,8 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { ITabBarIconProps } from "../../helpers/interfaces";
 
 export default function TabBarIcon(
-	route: Readonly<{ key: string; name: string }> & Readonly<{ params?: Readonly<undefined> }>,
+	route: Readonly<{ key: string; name: string }> &
+		Readonly<{ params?: Readonly<Record<string, unknown> | undefined> }>,
 ) {
 	return TabBarIconContent;
 

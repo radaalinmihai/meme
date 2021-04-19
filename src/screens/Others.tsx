@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-native";
 
-import useAuth from "../hooks/useAuth";
+import { useAuth } from "../contexts/auth/AuthContext";
 
 export default function OtherScreen() {
 	const { logout } = useAuth();

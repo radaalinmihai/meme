@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Avataar from "../../assets/avataaars.png";
 import EditOrShow from "../../components/EditOrShow";
 import { Avatar, ProfileHeader, Section, TextWrapper } from "../../components/styles";
-import useProfile from "../../hooks/useProfile";
+import { useProfile } from "../../contexts/home/ProfileContext";
 
 const ProfileScreen: React.FC = (): JSX.Element => {
 	const { getProfile, profile } = useProfile();
@@ -15,7 +15,6 @@ const ProfileScreen: React.FC = (): JSX.Element => {
 
 	useEffect(() => {
 		if (Object.keys(profile).length > 0 && profile.avatar !== "") {
-			console.log(profile);
 			setProfilePicture({ uri: profile.avatar });
 		}
 	}, [profile]);
