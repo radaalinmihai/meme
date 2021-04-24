@@ -1,4 +1,4 @@
-import { IAction } from "../../helpers/interfaces";
+import { IAction } from "helpers/interfaces";
 
 export interface ICardData {
 	id: number;
@@ -17,12 +17,14 @@ export interface ICardState {
 	activeId?: number;
 	secondId?: number;
 	cardsData?: ICardData[];
+	maxActiveCards?: number;
 }
 
 const initialState: ICardState = {
 	cardsData: [],
 	activeId: undefined,
 	secondId: undefined,
+	maxActiveCards: 3,
 };
 
 export default (state = initialState, action: IAction<ICardState>) => {

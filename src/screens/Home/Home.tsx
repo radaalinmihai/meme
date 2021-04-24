@@ -1,11 +1,10 @@
+import Card from "components/home/Card";
+import { CardActions, ICardData } from "components/home/CardReducer";
+import useCardActions from "components/home/useCardActions";
+import { HomeWrapper } from "components/styles";
+import { useCard } from "helpers/homeSelectors";
 import React, { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
-
-import Card from "../../components/home/Card";
-import { CardActions, ICardData } from "../../components/home/CardReducer";
-import useCardActions from "../../components/home/useCardActions";
-import { HomeWrapper } from "../../components/styles";
-import { useCard } from "../../helpers/homeSelectors";
 
 const image = "https://picsum.photos/200/300";
 
@@ -13,17 +12,20 @@ const dummyData: ICardData[] = Array(12)
 	.fill({})
 	.map((_, index) => ({ id: index, uri: image }));
 
-const MAX = 3;
 const HomeScreen = (): JSX.Element => {
 	const dispatch = useDispatch();
-	const { secondId, activeId, cardsData } = useCard();
-	const activeCards = (cardsData as ICardData[]).slice(0, MAX);
+	const { secondId, activeId, cardsData, maxActiveCards } = useCard();
+	const activeCards = useMemo(() => {
+		console.log(cardsData);
+		return (cardsData as ICardData[]).slice(0, maxActiveCards);
+	}, [cardsData]);
 
 	useEffect(() => {
 		dispatch(useCardActions(CardActions.setCards, dummyData));
 	}, []);
 
 	useEffect(() => {
+		const MAX = maxActiveCards as number;
 		if (activeCards.length >= MAX) {
 			dispatch(
 				useCardActions(CardActions.set, {
@@ -40,17 +42,15 @@ const HomeScreen = (): JSX.Element => {
 		}
 	};
 
-	console.log(activeCards);
-
 	return (
 		<HomeWrapper>
-			{activeCards.map((dummy) => (
+			{activeCards.map((card) => (
 				<Card
-					key={dummy.id}
+					key={card.id}
 					removeItem={removeItem}
-					active={dummy.id === activeId}
-					second={dummy.id === secondId}
-					src={dummy.uri}
+					active={card.id === activeId}
+					second={card.id === secondId}
+					src={card.uri}
 				/>
 			))}
 		</HomeWrapper>

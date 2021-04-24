@@ -1,13 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import TabBarButton from "components/navigation/TabBarButton";
+import TabBarIcon from "components/navigation/TabBarIcon";
+import { setStatusBarPadding } from "helpers/normalizers";
 import React from "react";
-
-import TabBarButton from "../components/navigation/TabBarButton";
-import TabBarIcon from "../components/navigation/TabBarIcon";
-import { setStatusBarPadding } from "../helpers/normalizers";
-import HomeScreen from "../screens/Home/Home";
-import NotificationScreen from "../screens/Notifications";
-import OtherScreen from "../screens/Others";
-import { DELIMITATOR_COLOR, SCREEN_BACKGROUND } from "../styles/colors";
+import HomeScreen from "screens/Home/Home";
+import NotificationScreen from "screens/Notifications";
+import OtherScreen from "screens/Others";
+import { DELIMITATOR_COLOR, SCREEN_BACKGROUND } from "styles/colors";
 
 const Tab = createBottomTabNavigator();
 

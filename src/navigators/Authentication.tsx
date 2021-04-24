@@ -1,9 +1,9 @@
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import React from "react";
+import { SCREEN_BACKGROUND } from "styles/colors";
 
 import LoginScreen from "../screens/Login";
 import RegisterScreen from "../screens/Register";
-import { SCREEN_BACKGROUND } from "../styles/colors";
 
 const Stack = createStackNavigator();
 

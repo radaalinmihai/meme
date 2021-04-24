@@ -7,20 +7,40 @@
 		"noImplicitReturns": true,
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
+		"baseUrl": "src",
 		"forceConsistentCasingInFileNames": true,
 		"jsx": "react",
 		"lib": ["es6"],
 		"moduleResolution": "node",
 		"noEmit": true,
 		"strict": true,
-		"target": "esnext"
+		"target": "esnext",
+		"paths": {
+			"@components/*": [
+				"/components/*"
+			],
+			"@contexts/*": [
+				"/contexts/*"
+			],
+			"@helpers/*": [
+				"/helpers/*"
+			],
+			"@navigators/*": [
+				"/navigators/*"
+			],
+			"@screens/*": [
+				"/screens/*"
+			],
+			"@styles/*": [
+				"/styles/*"
+			]
+		}
 	},
 	"exclude": [
 		"node_modules",
 		"babel.config.js",
 		"metro.config.js",
 		"jest.config.js",
-		".eslintrc.js",
-		".prettierrc"
+		".eslintrc.js"
 	]
 }
