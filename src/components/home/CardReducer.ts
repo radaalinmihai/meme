@@ -44,8 +44,7 @@ export default (state = initialState, action: IAction<ICardState>) => {
 		}
 		case CardActions.removeSwipedCard: {
 			const id = action.payload as number;
-			state.cardsData = state.cardsData?.filter((card) => card.id !== id);
-			return { ...state };
+			return { ...state, cardsData: state.cardsData?.filter((card, idx) => idx !== 0) };
 		}
 		default: {
 			return state;

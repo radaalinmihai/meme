@@ -16,7 +16,6 @@ const HomeScreen = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const { secondId, activeId, cardsData, maxActiveCards } = useCard();
 	const activeCards = useMemo(() => {
-		console.log(cardsData);
 		return (cardsData as ICardData[]).slice(0, maxActiveCards);
 	}, [cardsData]);
 
@@ -25,34 +24,34 @@ const HomeScreen = (): JSX.Element => {
 	}, []);
 
 	useEffect(() => {
+		const activeData = (cardsData as ICardData[]).slice(0, maxActiveCards);
+		// console.log(activeData);
 		const MAX = maxActiveCards as number;
-		if (activeCards.length >= MAX) {
+		if (activeData.length >= MAX) {
 			dispatch(
 				useCardActions(CardActions.set, {
-					activeId: activeCards[MAX - 1].id,
-					secondId: activeCards[MAX - 2].id,
+					activeId: activeData[2].id,
+					secondId: activeData[1].id,
 				}),
 			);
 		}
-	}, [activeCards]);
+	}, [cardsData]);
 
 	const removeItem = (isFinished: boolean) => {
 		if (isFinished) {
-			dispatch(useCardActions(CardActions.removeSwipedCard, activeCards[0].id));
+			dispatch(useCardActions(CardActions.removeSwipedCard, cardsData[0].id));
 		}
 	};
-
+	// console.log(cardsData);
 	return (
 		<HomeWrapper>
-			{activeCards.map((card) => (
-				<Card
-					key={card.id}
-					removeItem={removeItem}
-					active={card.id === activeId}
-					second={card.id === secondId}
-					src={card.uri}
-				/>
-			))}
+			{activeCards.length > 0 && (
+				<>
+					<Card removeItem={removeItem} active second={false} src={activeCards[0].uri} />
+					<Card removeItem={removeItem} active={false} second src={activeCards[1].uri} />
+					<Card removeItem={removeItem} active={false} second={false} src={activeCards[2].uri} />
+				</>
+			)}
 		</HomeWrapper>
 	);
 };

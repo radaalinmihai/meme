@@ -42,6 +42,11 @@ const Card: FunctionComponent<ICardProps> = ({ src, active, removeItem, second, 
 		};
 	}, [activeXValue, active, second]);
 
+	useEffect(() => {
+		// console.log("render");
+		return () => console.log("unmounted :(");
+	}, []);
+
 	const setActiveX = (canDo: boolean) => {
 		if (canDo) {
 			CardEmitter.emit("activeX", Math.floor(x.value));
@@ -102,7 +107,6 @@ const Card: FunctionComponent<ICardProps> = ({ src, active, removeItem, second, 
 		}
 		return () => CardEmitter.off("activeX");
 	}, [second]);
-
 	return (
 		<PanGestureHandler onGestureEvent={handlePan}>
 			<AnimatedCardImage style={animatedStyles} source={{ uri: src }} />
